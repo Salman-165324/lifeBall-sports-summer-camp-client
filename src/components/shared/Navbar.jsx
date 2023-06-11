@@ -4,23 +4,27 @@ import websiteLogo from "../../assets/soccer.png";
 const Navbar = () => {
   const navItems = (
     <>
-      <li>
-         <Link to={"/"}>Home</Link>
+      <li >
+        <Link className=" hover:text-yellow-100 !important hover:underline" to={"/"}>Home</Link>
       </li>
       <li>
-         <Link to={"/"}>Instructors</Link>
+        <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Instructors</Link>
       </li>
       <li>
-         <Link to={"/"}>Classes</Link>
+        <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Classes</Link>
       </li>
       <li>
-         <Link to={"/"}>Dashboard</Link>
+        <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Dashboard</Link>
       </li>
-      
+      <li className="grow-0 w-fit pt-4 md:pt-0 ">
+        <Link>
+          <button className="btn btn-sm ">login</button>
+        </Link>
+      </li>
     </>
   );
   return (
-    <div className="bg-green-950 text-white absolute z-20 opacity-80 w-full">
+    <div className="bg-green-950 text-white  opacity-80 w-full">
       <div className="drawer secondary-container">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
@@ -47,20 +51,20 @@ const Navbar = () => {
               <img className="w-14 h-16" src={websiteLogo} alt="" />
               <div className="ml-2  leading-tight tracking-wider">
                 <span className="font-bold text-xl block">LifeBall</span>
-                
               </div>
             </div>
             <div className="flex-1 px-2 mx-2 font-bold flex items-center justify-center">
               <div className="flex-none hidden lg:block">
                 <ul className="menu menu-horizontal">
                   {/* Navbar menu content here */}
+                  <div className="flex items-center">
                   {navItems}
+                  </div>
                 </ul>
               </div>
             </div>
           </div>
           {/* Page content here */}
-          
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
