@@ -6,6 +6,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../components/pages/Home";
 import SignUp from "../components/shared/SignUp";
 import Login from "../components/shared/Login";
+import Error from "../components/pages/errorPage/Error";
 
 
 
@@ -13,6 +14,7 @@ import Login from "../components/shared/Login";
     {
       path: "/",
       element: <MainLayout></MainLayout>,
+      errorElement: <Error></Error>, 
       children: [
         {
           path: "/", 
