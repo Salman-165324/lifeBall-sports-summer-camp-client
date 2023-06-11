@@ -17,7 +17,7 @@ const Navbar = () => {
         <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Dashboard</Link>
       </li>
       <li className="grow-0 w-fit pt-4 md:pt-0 ">
-        <Link>
+        <Link to={'/login'}>
           <button className="btn btn-sm ">login</button>
         </Link>
       </li>
