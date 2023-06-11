@@ -7,7 +7,11 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 
 const SignUp = () => {
-  const { googleSignIn } = useAuth();
+  const {
+    googleSignIn,
+    signUpWithPassword,
+    addUserNameAndPicture,
+  } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,6 +24,29 @@ const SignUp = () => {
   const password = watch("password");
   const onSubmit = (data) => {
     console.log(data);
+
+    signUpWithPassword(data.email, data.password)
+      .then( (result) => {
+
+        const user = result.user; 
+        console.log(user);
+        addUserNameAndPicture(data.name, data.photoURL)
+          .then(() =>{
+            
+          }).catch(error => {
+            console.log(error);
+            toast.error(error.message, {
+               position: "top-center", 
+            })
+          })
+        toast.success("You have been successfully signed in.", {
+          position: "top-center"
+        })
+      })
+      .catch( error => {
+
+        console.log(error)
+      })
   };
   console.log(errors);
 
@@ -34,19 +61,20 @@ const SignUp = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        
         const user = result.user;
-        console.log(user); 
-        toast.success('You have been successfully signed in', {
-          position: 'top-center', // Set the position to top-center
+        console.log(user);
+        toast.success("You have been successfully signed in", {
+          position: "top-center", // Set the position to top-center
         });
       })
       .catch((error) => {
-        
         const errorMessage = error.message;
-        toast.error({errorMessage}, {
-          position: 'top-center', // Set the position to top-center
-        });
+        toast.error(
+          { errorMessage },
+          {
+            position: "top-center", // Set the position to top-center
+          }
+        );
       });
   };
 
