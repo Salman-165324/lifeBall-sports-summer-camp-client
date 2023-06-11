@@ -6,6 +6,7 @@ import bg2 from "../../../assets/bg-2.jpg";
 import Typewriter from "react-ts-typewriter";
 import PrimaryBtn from "../../utils/PrimaryBtn";
 import Navbar from "../../shared/Navbar";
+import { Fade, Slide } from "react-awesome-reveal";
 
 const HeroSection = () => {
   return (
@@ -26,19 +27,20 @@ const HeroSection = () => {
             </a>
           </div>
           <div className="absolute bottom-[33%] left-4 right-4 lg:left-[15%] md:max-w-2xl ">
-            <h2 className=" text-4xl font-bold text-yellow-300 lg:text-6xl ">
-              <Typewriter
-                cursor={false}
-                speed={80}
-                text="Not just a Summer Sports Camp!"
-              />
-            </h2>
-            <p className="text-yellow-100 font-semibold mt-4 md:mt-5 max-w-xl">
-              Here your kids play and have fun, while simultaneously we teach
-              them how to think, use tactics, communicate effectively,
-              demonstrate leadership, and more. Our goal is to prepare them for
-              the game of life through different sports.
-            </p>
+            <Slide>
+              <h2 className=" text-4xl font-bold text-yellow-300 lg:text-6xl ">
+                Not just a Summer Sports Camp!
+              </h2>
+            </Slide>
+            <Fade delay={1e3} cascade damping={1e-2}>
+              <p className="text-yellow-100 font-semibold mt-4 md:mt-5 max-w-xl">
+                Here your kids play and have fun, while simultaneously we teach
+                them how to think, use tactics, communicate effectively,
+                demonstrate leadership, and more. Our goal is to prepare them
+                for the game of life through different sports.
+              </p>
+            </Fade>
+
             <PrimaryBtn text={"Learn More"}></PrimaryBtn>
           </div>
         </div>
@@ -56,13 +58,11 @@ const HeroSection = () => {
             </a>
           </div>
           <div className="absolute bottom-[40%] left-3 right-3 lg:left-[15%] md:max-w-2xl ">
-            <h2 className=" text-4xl font-bold text-yellow-300 lg:text-6xl ">
-              <Typewriter
-                cursor={false}
-                speed={60}
-                text="Teach your kids to think and strategize."
-              />
-            </h2>
+            <Slide>
+              <h2 className=" text-4xl font-bold text-yellow-300 lg:text-6xl ">
+                Teach your kids to think and strategize.
+              </h2>
+            </Slide>
             <p className="text-yellow-100 font-semibold mt-3 md:mt-5 max-w-xl"></p>
             <PrimaryBtn text={"Learn More"}></PrimaryBtn>
           </div>
