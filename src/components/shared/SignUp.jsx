@@ -2,37 +2,53 @@ import React, { useRef } from "react";
 import PrimaryBtn from "../utils/PrimaryBtn";
 import { Link } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
-  
- 
+  const { googleSignIn } = useAuth();
   const {
     register,
     handleSubmit,
     setError,
     clearErrors,
-    watch, 
+    watch,
     formState: { errors },
   } = useForm();
 
-  const password = watch("password"); 
+  const password = watch("password");
   const onSubmit = (data) => {
     console.log(data);
-  
   };
   console.log(errors);
-  console.log(password)
 
-  const validateConfirmPassword = (value) =>{
+  const validateConfirmPassword = (value) => {
+    if (value !== password) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
-      if(value!== password){
-        return false;
-      }
-      else{
-        return true;
-      }
-  }
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        
+        const user = result.user;
+        console.log(user); 
+        toast.success('You have been successfully signed in', {
+          position: 'top-center', // Set the position to top-center
+        });
+      })
+      .catch((error) => {
+        
+        const errorMessage = error.message;
+        toast.error({errorMessage}, {
+          position: 'top-center', // Set the position to top-center
+        });
+      });
+  };
 
   return (
     <div className="primary-container ">
@@ -67,7 +83,7 @@ const SignUp = () => {
                     placeholder="email"
                     {...register("email", { required: true })}
                   />
-                  {errors.email?.type === 'required' && (
+                  {errors.email?.type === "required" && (
                     <span className="text-red-500 pl-1 pt-0.5">
                       This field is required
                     </span>
@@ -92,26 +108,25 @@ const SignUp = () => {
                   <input
                     className="input input-bordered"
                     type="password"
-                    
                     placeholder="password"
                     {...register("password", {
                       required: true,
                       minLength: 6,
                       pattern: /^(?=.*[A-Z])(?=.*[\W_]).*$/,
                     })}
-                  
                   />
-                  {errors.password?.type === 'required' && (
+                  {errors.password?.type === "required" && (
                     <span className="text-red-500 pl-1 pt-0.5">
                       This field is required
                     </span>
                   )}
-                  {errors.password?.type === 'pattern' && (
+                  {errors.password?.type === "pattern" && (
                     <span className="text-red-500 pl-1 pt-0.5">
-                      Password must have a uppercase letter and a special character.
+                      Password must have a uppercase letter and a special
+                      character.
                     </span>
                   )}
-                  {errors.password?.type === 'minLength' && (
+                  {errors.password?.type === "minLength" && (
                     <span className="text-red-500 pl-1 pt-0.5">
                       Password must be at least 6 character long.
                     </span>
@@ -125,18 +140,17 @@ const SignUp = () => {
                     className="input input-bordered"
                     type="password"
                     placeholder="confirm password"
-                    {...register("confirmPassword",
-                     { required: true, 
-                       validate: validateConfirmPassword
-                     })}
-                   
+                    {...register("confirmPassword", {
+                      required: true,
+                      validate: validateConfirmPassword,
+                    })}
                   />
-                  {errors.confirmPassword?.type === 'required' && (
+                  {errors.confirmPassword?.type === "required" && (
                     <span className="text-red-500 pl-1 pt-0.5">
                       This field is required
                     </span>
                   )}
-                  {errors.confirmPassword?.type === 'validate' && (
+                  {errors.confirmPassword?.type === "validate" && (
                     <span className="text-red-500 pl-1 pt-0.5">
                       {`Password doesn't match`}
                     </span>
@@ -152,7 +166,7 @@ const SignUp = () => {
                 </div>
               </form>
               <div className="mt-8">
-                <button className="btn w-full">
+                <button onClick={handleGoogleSignIn} className="btn w-full">
                   <AiFillGoogleCircle size={30} />
                   Continue with Google
                 </button>
