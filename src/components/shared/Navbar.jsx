@@ -1,31 +1,72 @@
 import { Link } from "react-router-dom";
 import websiteLogo from "../../assets/soccer.png";
+import useAuth from "../../hooks/useAuth";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        toast('You have been logged out', {
+          position: 'top-center', 
+          type: 'warning', 
+          duration: 4000, 
+        });
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          position: 'top-center', 
+        });
+      });
+  };
   const navItems = (
     <>
-      <li >
-        <Link className=" hover:text-yellow-100 !important hover:underline" to={"/"}>Home</Link>
+      <li className="group">
+        <div className=" group-hover:text-yellow-100 !important hover:underline">
+          <Link to={"/"}>Home</Link>
+        </div>
       </li>
-      <li>
-        <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Instructors</Link>
+      <li className="group">
+        <div className=" group-hover:text-yellow-100 hover:underline">
+          <Link to={"/"}>Instructors</Link>
+        </div>
       </li>
-      <li>
-        <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Classes</Link>
+      <li className="group">
+        <div className=" group-hover:text-yellow-100 hover:underline">
+          <Link to={"/"}>Classes</Link>
+        </div>
       </li>
-      <li>
-        <Link className=" hover:text-yellow-100 hover:underline" to={"/"}>Dashboard</Link>
+      <li className="group">
+        <div className="group-hover:text-yellow-100 hover:underline">
+          <Link to={"/"}>Dashboard</Link>
+        </div>
       </li>
-      <li className="grow-0 w-fit pt-4 md:pt-0 ">
-        <Link to={'/login'}>
-          <button className="btn btn-sm ">login</button>
-        </Link>
-      </li>
+      {user ? (
+        <>
+          <li className="grow-0 w-fit pt-4 md:pt-0 ">
+            <div>
+              <button onClick={handleLogout} className="btn btn-sm btn-outline btn-warning text-white block hover:text-yellow-400  ">
+                logout
+              </button>
+            </div>
+          </li>
+        </>
+      ) : (
+        <>
+          <li className="grow-0 w-fit pt-4 md:pt-0  ">
+            <Link to={"/login"}>
+              <button className="btn btn-sm">login</button>
+            </Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
-    <div className="bg-green-950 text-white  opacity-80 w-full">
-      <div className="drawer secondary-container">
+    <div className="bg-green-950 text-white  opacity-80 w-full ">
+      <div className="drawer secondary-container ">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
           {/* Navbar */}
@@ -57,9 +98,7 @@ const Navbar = () => {
               <div className="flex-none hidden lg:block">
                 <ul className="menu menu-horizontal">
                   {/* Navbar menu content here */}
-                  <div className="flex items-center">
-                  {navItems}
-                  </div>
+                  <div className="flex items-center">{navItems}</div>
                 </ul>
               </div>
             </div>
