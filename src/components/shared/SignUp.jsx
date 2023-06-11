@@ -39,7 +39,7 @@ const SignUp = () => {
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Email*</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -47,6 +47,11 @@ const SignUp = () => {
                     placeholder="email"
                     {...register("email", { required: true })}
                   />
+                  {errors.email?.type === 'required' && (
+                    <span className="text-red-500 pl-1 pt-0.5">
+                      This field is required
+                    </span>
+                  )}
                 </div>
 
                 <div className="form-control">
@@ -62,7 +67,7 @@ const SignUp = () => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Password</span>
+                    <span className="label-text">Password*</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -70,14 +75,29 @@ const SignUp = () => {
                     placeholder="password"
                     {...register("password", {
                       required: true,
-                      min: 6,
+                      minLength: 6,
                       pattern: /^(?=.*[A-Z])(?=.*[\W_]).*$/,
                     })}
                   />
+                  {errors.password?.type === 'required' && (
+                    <span className="text-red-500 pl-1 pt-0.5">
+                      This field is required
+                    </span>
+                  )}
+                  {errors.password?.type === 'pattern' && (
+                    <span className="text-red-500 pl-1 pt-0.5">
+                      Password must have a uppercase letter and a special character.
+                    </span>
+                  )}
+                  {errors.password?.type === 'minLength' && (
+                    <span className="text-red-500 pl-1 pt-0.5">
+                      Password must be at least 6 character long.
+                    </span>
+                  )}
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Confirm Password</span>
+                    <span className="label-text">Confirm Password*</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -85,6 +105,11 @@ const SignUp = () => {
                     placeholder="confirm password"
                     {...register("confirmPassword", { required: true })}
                   />
+                  {errors.confirmPassword?.type === 'required' && (
+                    <span className="text-red-500 pl-1 pt-0.5">
+                      This field is required
+                    </span>
+                  )}
                 </div>
 
                 <div className="form-control mt-6">
