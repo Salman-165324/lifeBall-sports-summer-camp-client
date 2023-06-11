@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import PrimaryBtn from "../utils/PrimaryBtn";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
+import { AiOutlineEye } from "react-icons/ai";
 
 const Login = () => {
   const { googleSignIn, logInWithPassword } = useAuth();
-
+  const [hidePassword, setHidePassword] = useState(true); 
+  const handleHidePassword = () =>{
+     setHidePassword(!hidePassword); 
+  }
   const {
     register,
     handleSubmit,
@@ -83,14 +87,17 @@ const Login = () => {
                     <label className="label">
                       <span className="label-text">Password*</span>
                     </label>
-                    <input
-                      className="input input-bordered"
-                      type="password"
-                      placeholder="password"
-                      {...register("password", {
-                        required: true,
-                      })}
-                    />
+                    <div className="relative">
+                      <input
+                        className="input input-bordered w-full"
+                        type= {hidePassword? 'password' : 'text'}
+                        placeholder="password"
+                        {...register("password", {
+                          required: true,
+                        })}
+                      />
+                      <AiOutlineEye onClick={handleHidePassword} size={24} className="absolute right-2 bottom-3 cursor-pointer hover:text-blue-500" />
+                    </div>
                     {errors.password?.type === "required" && (
                       <span className="text-red-500 pl-1 pt-0.5">
                         This field is required
