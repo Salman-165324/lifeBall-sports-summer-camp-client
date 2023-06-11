@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
 import PrimaryBtn from "../utils/PrimaryBtn";
 import { Link } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { useForm } from "react-hook-form";
+import { useForm} from "react-hook-form";
 
 const SignUp = () => {
+  
+ 
   const {
     register,
     handleSubmit,
+    setError,
+    clearErrors,
+    watch, 
     formState: { errors },
   } = useForm();
+
+  const password = watch("password"); 
   const onSubmit = (data) => {
     console.log(data);
+  
   };
   console.log(errors);
+  console.log(password)
+
+  const validateConfirmPassword = (value) =>{
+
+      if(value!== password){
+        return false;
+      }
+      else{
+        return true;
+      }
+  }
+
   return (
     <div className="primary-container ">
       <div className="hero bg-green-200 rounded-xl py-10">
@@ -72,12 +92,14 @@ const SignUp = () => {
                   <input
                     className="input input-bordered"
                     type="password"
+                    
                     placeholder="password"
                     {...register("password", {
                       required: true,
                       minLength: 6,
                       pattern: /^(?=.*[A-Z])(?=.*[\W_]).*$/,
                     })}
+                  
                   />
                   {errors.password?.type === 'required' && (
                     <span className="text-red-500 pl-1 pt-0.5">
@@ -103,11 +125,20 @@ const SignUp = () => {
                     className="input input-bordered"
                     type="password"
                     placeholder="confirm password"
-                    {...register("confirmPassword", { required: true })}
+                    {...register("confirmPassword",
+                     { required: true, 
+                       validate: validateConfirmPassword
+                     })}
+                   
                   />
                   {errors.confirmPassword?.type === 'required' && (
                     <span className="text-red-500 pl-1 pt-0.5">
                       This field is required
+                    </span>
+                  )}
+                  {errors.confirmPassword?.type === 'validate' && (
+                    <span className="text-red-500 pl-1 pt-0.5">
+                      {`Password doesn't match`}
                     </span>
                   )}
                 </div>
