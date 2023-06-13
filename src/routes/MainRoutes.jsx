@@ -1,7 +1,4 @@
-import {
-  Navigate,
-    createBrowserRouter,
-  } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../components/pages/Home";
 import SignUp from "../components/shared/SignUp";
@@ -10,46 +7,48 @@ import Error from "../components/pages/errorPage/Error";
 import Classes from "../components/pages/classesPage/Classes";
 import Instructors from "../components/pages/instructorsPage/Instructors";
 import Dashboard from "../components/pages/dashboardPage/Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    errorElement: <Error></Error>,
+    children: [
+      {
+        path: "/",
+        element: <Navigate to={"/home"}></Navigate>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/classes",
+        element: <Classes></Classes>,
+      },
+      {
+        path: "/instructors",
+        element: <Instructors></Instructors>,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/home",
+    element: <Home></Home>,
+  },
+]);
 
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      errorElement: <Error></Error>, 
-      children: [
-        {
-          path: "/", 
-          element: <Navigate to={'/home'}></Navigate>
-        }, 
-        {
-          path: "/signup", 
-          element: <SignUp></SignUp>
-        }, 
-        {
-          path: "/login", 
-          element: <Login></Login>
-        }, 
-        {
-          path:'/classes', 
-          element: <Classes></Classes>
-        }, 
-        {
-          path: '/instructors', 
-          element: <Instructors></Instructors>
-        }, 
-        {
-          path: '/dashboard', 
-          element: <Dashboard></Dashboard>
-        }
-      ]
-    },
-    {
-      path: '/home', 
-      element: <Home></Home>
-    }
-  ]);
-
-
-  export default router
+export default router;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import PrimaryBtn from "../utils/PrimaryBtn";
@@ -12,6 +12,11 @@ const Login = () => {
   const [axiosInstance] = useAxiosInstance();
   const { googleSignIn, logInWithPassword } = useAuth();
   const [hidePassword, setHidePassword] = useState(true);
+  const location = useLocation();
+
+  console.log(location);
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
   const handleHidePassword = () => {
     setHidePassword(!hidePassword);
   };
@@ -29,6 +34,7 @@ const Login = () => {
         toast.success("You have been successfully Logged in", {
           position: "top-center",
         });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -55,6 +61,7 @@ const Login = () => {
           .catch((error) => {
             console.log("Error after trying to add user to db", error);
           });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;

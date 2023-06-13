@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import PrimaryBtn from "../utils/PrimaryBtn";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
@@ -10,7 +10,8 @@ import useAxiosInstance from "../../hooks/useAxiosInstance";
 const SignUp = () => {
   const [axiosInstance] = useAxiosInstance();
   const { googleSignIn, signUpWithPassword, addUserNameAndPicture } = useAuth();
-  
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -49,6 +50,7 @@ const SignUp = () => {
         toast.success("You have been successfully signed in.", {
           position: "top-center",
         });
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -82,6 +84,7 @@ const SignUp = () => {
           .catch((error) => {
             console.log("Error after trying to add user to db", error);
           });
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;
