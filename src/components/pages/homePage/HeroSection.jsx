@@ -33,7 +33,7 @@ const HeroSection = () => {
               </h2>
             </Slide>
             <Fade delay={1e3} cascade damping={1e-2}>
-              <p className="text-yellow-100 font-semibold mt-4 md:mt-5 max-w-xl">
+              <p className="text-yellow-100 font-semibold mt-5 max-w-xl mb-8">
                 Here your kids play and have fun, while simultaneously we teach
                 them how to think, use tactics, communicate effectively,
                 demonstrate leadership, and more. Our goal is to prepare them
@@ -63,8 +63,10 @@ const HeroSection = () => {
                 Teach your kids to think and strategize.
               </h2>
             </Slide>
-            <p className="text-yellow-100 font-semibold mt-3 md:mt-5 max-w-xl"></p>
-            <PrimaryBtn text={"Learn More"}></PrimaryBtn>
+            <p className=" mb-5 text-yellow-100 font-semibold mt-3 md:mt-5 max-w-xl"></p>
+            <div className="mt-5">
+              <PrimaryBtn text={"Learn More"}></PrimaryBtn>
+            </div>
           </div>
         </div>
 

@@ -5,8 +5,7 @@ import { toast } from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-  console.log("User Name", user?.displayName);
-  console.log("User in Nav", user);
+
   const handleLogout = () => {
     logout()
       .then(() => {
@@ -36,7 +35,7 @@ const Navbar = () => {
       </li>
       <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline">
-          <Link to={"/"}>Classes</Link>
+          <Link to={"/classes"}>Classes</Link>
         </div>
       </li>
       <li className="group">

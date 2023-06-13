@@ -7,6 +7,7 @@ import Home from "../components/pages/Home";
 import SignUp from "../components/shared/SignUp";
 import Login from "../components/shared/Login";
 import Error from "../components/pages/errorPage/Error";
+import Classes from "../components/pages/classesPage/Classes";
 
 
 
@@ -27,6 +28,10 @@ import Error from "../components/pages/errorPage/Error";
         {
           path: "/login", 
           element: <Login></Login>
+        }, 
+        {
+          path:'/classes', 
+          element: <Classes></Classes>
         }
       ]
     },
