@@ -40,7 +40,7 @@ const Navbar = () => {
       </li>
       <li className="group">
         <div className="group-hover:text-yellow-100 hover:underline">
-          <Link to={"/"}>Dashboard</Link>
+          <Link to={"/dashboard"}>Dashboard</Link>
         </div>
       </li>
       {user ? (

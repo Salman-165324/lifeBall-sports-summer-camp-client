@@ -2,7 +2,7 @@ import React from "react";
 import PrimaryBtn from "../../utils/PrimaryBtn";
 
 const ClassCard = ({ singleClass }) => {
-  console.log(singleClass);
+
   return (
     <div>
       <section className="text-gray-600 body-font overflow-hidden">

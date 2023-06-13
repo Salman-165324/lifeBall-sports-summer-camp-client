@@ -9,6 +9,7 @@ import Login from "../components/shared/Login";
 import Error from "../components/pages/errorPage/Error";
 import Classes from "../components/pages/classesPage/Classes";
 import Instructors from "../components/pages/instructorsPage/Instructors";
+import Dashboard from "../components/pages/dashboardPage/Dashboard";
 
 
 
@@ -37,6 +38,10 @@ import Instructors from "../components/pages/instructorsPage/Instructors";
         {
           path: '/instructors', 
           element: <Instructors></Instructors>
+        }, 
+        {
+          path: '/dashboard', 
+          element: <Dashboard></Dashboard>
         }
       ]
     },
