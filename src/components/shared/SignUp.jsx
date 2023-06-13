@@ -5,13 +5,12 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
+import useAxiosInstance from "../../hooks/useAxiosInstance";
 
 const SignUp = () => {
-  const {
-    googleSignIn,
-    signUpWithPassword,
-    addUserNameAndPicture,
-  } = useAuth();
+  const [axiosInstance] = useAxiosInstance();
+  const { googleSignIn, signUpWithPassword, addUserNameAndPicture } = useAuth();
+  
   const {
     register,
     handleSubmit,
@@ -26,27 +25,34 @@ const SignUp = () => {
     console.log(data);
 
     signUpWithPassword(data.email, data.password)
-      .then( (result) => {
-
-        const user = result.user; 
+      .then((result) => {
+        const user = result.user;
         console.log(user);
         addUserNameAndPicture(data.name, data.photoURL)
-          .then(() =>{
-            
-          }).catch(error => {
+          .then(() => {
+            const newUser = { name: data?.name, email: data.email };
+            axiosInstance
+              .post("/add-user", { newUser })
+              .then((res) => {
+                console.log("Response after adding the user to db", res.data);
+              })
+              .catch((error) => {
+                console.log("Error after trying to add user to db", error);
+              });
+          })
+          .catch((error) => {
             console.log(error);
             toast.error(error.message, {
-               position: "top-center", 
-            })
-          })
+              position: "top-center",
+            });
+          });
         toast.success("You have been successfully signed in.", {
-          position: "top-center"
-        })
+          position: "top-center",
+        });
       })
-      .catch( error => {
-
-        console.log(error)
-      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   console.log(errors);
 
@@ -66,6 +72,16 @@ const SignUp = () => {
         toast.success("You have been successfully signed in", {
           position: "top-center", // Set the position to top-center
         });
+
+        const newUser = { name: user.displayName, email: user.email };
+        axiosInstance
+          .post("/add-user", { newUser })
+          .then((res) => {
+            console.log("Response after adding the user to db", res.data);
+          })
+          .catch((error) => {
+            console.log("Error after trying to add user to db", error);
+          });
       })
       .catch((error) => {
         const errorMessage = error.message;

@@ -6,13 +6,15 @@ import PrimaryBtn from "../utils/PrimaryBtn";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { AiOutlineEye } from "react-icons/ai";
+import useAxiosInstance from "../../hooks/useAxiosInstance";
 
 const Login = () => {
+  const [axiosInstance] = useAxiosInstance();
   const { googleSignIn, logInWithPassword } = useAuth();
-  const [hidePassword, setHidePassword] = useState(true); 
-  const handleHidePassword = () =>{
-     setHidePassword(!hidePassword); 
-  }
+  const [hidePassword, setHidePassword] = useState(true);
+  const handleHidePassword = () => {
+    setHidePassword(!hidePassword);
+  };
   const {
     register,
     handleSubmit,
@@ -44,6 +46,15 @@ const Login = () => {
         toast.success("You have been successfully signed in", {
           position: "top-center", // Set the position to top-center
         });
+        const newUser = { name: user.displayName, email: user.email };
+        axiosInstance
+          .post("/add-user", { newUser })
+          .then((res) => {
+            console.log("Response after adding the user to db", res.data);
+          })
+          .catch((error) => {
+            console.log("Error after trying to add user to db", error);
+          });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -90,13 +101,17 @@ const Login = () => {
                     <div className="relative">
                       <input
                         className="input input-bordered w-full"
-                        type= {hidePassword? 'password' : 'text'}
+                        type={hidePassword ? "password" : "text"}
                         placeholder="password"
                         {...register("password", {
                           required: true,
                         })}
                       />
-                      <AiOutlineEye onClick={handleHidePassword} size={24} className="absolute right-2 bottom-3 cursor-pointer hover:text-blue-500" />
+                      <AiOutlineEye
+                        onClick={handleHidePassword}
+                        size={24}
+                        className="absolute right-2 bottom-3 cursor-pointer hover:text-blue-500"
+                      />
                     </div>
                     {errors.password?.type === "required" && (
                       <span className="text-red-500 pl-1 pt-0.5">
