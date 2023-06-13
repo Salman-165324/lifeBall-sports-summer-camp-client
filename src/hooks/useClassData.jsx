@@ -4,7 +4,7 @@ import useAxiosInstance from "./useAxiosInstance";
 
 const useClassData = () => {
   const [axiosInstance] = useAxiosInstance(); 
-  const { data : classes, refetch} = useQuery({
+  const { data : classes = [], refetch} = useQuery({
     queryKey: ['classData'],
     queryFn: async () => {
       const res = await axiosInstance.get("/classes")
