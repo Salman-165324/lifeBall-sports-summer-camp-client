@@ -8,6 +8,7 @@ import SignUp from "../components/shared/SignUp";
 import Login from "../components/shared/Login";
 import Error from "../components/pages/errorPage/Error";
 import Classes from "../components/pages/classesPage/Classes";
+import Instructors from "../components/pages/instructorsPage/Instructors";
 
 
 
@@ -32,6 +33,10 @@ import Classes from "../components/pages/classesPage/Classes";
         {
           path:'/classes', 
           element: <Classes></Classes>
+        }, 
+        {
+          path: '/instructors', 
+          element: <Instructors></Instructors>
         }
       ]
     },

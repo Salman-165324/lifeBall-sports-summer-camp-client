@@ -30,7 +30,7 @@ const Navbar = () => {
       </li>
       <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline">
-          <Link to={"/"}>Instructors</Link>
+          <Link to={"/instructors"}>Instructors</Link>
         </div>
       </li>
       <li className="group">
