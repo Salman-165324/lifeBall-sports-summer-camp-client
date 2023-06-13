@@ -7,6 +7,7 @@ import Typewriter from "react-ts-typewriter";
 import PrimaryBtn from "../../utils/PrimaryBtn";
 import Navbar from "../../shared/Navbar";
 import { Fade, Slide } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -41,7 +42,9 @@ const HeroSection = () => {
               </p>
             </Fade>
 
-            <PrimaryBtn text={"Learn More"}></PrimaryBtn>
+            <Link to={"/classes"}>
+              <PrimaryBtn text={"Learn More"}></PrimaryBtn>
+            </Link>
           </div>
         </div>
 
@@ -65,7 +68,9 @@ const HeroSection = () => {
             </Slide>
             <p className=" mb-5 text-yellow-100 font-semibold mt-3 md:mt-5 max-w-xl"></p>
             <div className="mt-5">
+            <Link to={"/classes"}>
               <PrimaryBtn text={"Learn More"}></PrimaryBtn>
+            </Link>
             </div>
           </div>
         </div>
