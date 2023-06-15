@@ -8,7 +8,7 @@ const useClassData = () => {
     queryKey: ['classData'],
     queryFn: async () => {
       const res = await axiosInstance.get("/classes")
-      console.log(res.data);
+
       return res?.data
     },
   });

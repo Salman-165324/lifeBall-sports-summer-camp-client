@@ -5,7 +5,6 @@ import ClassCard from "./ClassCard";
 
 const Classes = () => {
   const [classes] = useClassData();
-  console.log(classes);
   return (
     <div>
       <div className="mt-16">

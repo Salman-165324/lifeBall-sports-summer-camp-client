@@ -5,7 +5,7 @@ import useAxiosInstance from "./useAxiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const useAxiosSecure = () => {
-  const { user, logout } = useAuth();
+  const {logout } = useAuth();
   const navigate = useNavigate();
   const [axiosInstance] = useAxiosInstance();
   useEffect(() => {

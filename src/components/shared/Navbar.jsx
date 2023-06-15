@@ -3,6 +3,7 @@ import websiteLogo from "../../assets/soccer.png";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import NavigationItems from "../utils/NavigationItems";
+import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -91,7 +92,7 @@ const Navbar = () => {
           {/* Navbar */}
           <div className="w-full navbar">
             <div className="flex-none lg:hidden">
-              <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+              {/* <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -105,6 +106,12 @@ const Navbar = () => {
                     d="M4 6h16M4 12h16M4 18h16"
                   ></path>
                 </svg>
+              </label> */}
+              <label
+                htmlFor="my-drawer-3"
+                className="btn bg-green-200 btn-outline mr-6 drawer-button lg:hidden"
+              >
+                <FaBars size={20} />
               </label>
             </div>
             <div>

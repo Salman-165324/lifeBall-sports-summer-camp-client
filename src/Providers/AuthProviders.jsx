@@ -76,7 +76,7 @@ const AuthProviders = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, [auth]);
+  }, [auth, axiosInstance]);
 
   const authDetails = {
     user,

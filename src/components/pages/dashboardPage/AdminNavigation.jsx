@@ -7,13 +7,13 @@ import { GiScrollQuill } from "react-icons/gi";
 const AdminNavigation = () => {
   return (
     <div>
-      <li className="group">
+      {/* <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline ">
           <Link className="flex items-center" to={"/dashboard"}>
           <AiFillHome size={20} className="mr-2 mb-1" />Admin Home
           </Link>
         </div>
-      </li>
+      </li> */}
       <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline ">
           <Link className="flex items-center" to={"/dashboard"}>

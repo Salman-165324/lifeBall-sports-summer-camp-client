@@ -1,14 +1,14 @@
-import React from "react";
-import SectionTitle from "../../utils/SectionTitle";
+
 import useUserData from "../../../hooks/useUserData";
 import UserTableRow from "./UserTableRow";
 
 const ManageUser = () => {
   const [allUsers] = useUserData();
+
   return (
     <div>
-      <div className="mt-16">
-        <SectionTitle title={"Manage All the Users"}></SectionTitle>
+      <div>
+        <h2 className="text-4xl font-bold mt-16 ml-3 lg:text-center lg:ml-0">Manage All the Users</h2>
       </div>
       <div className="mt-16 flex flex-col items-center justify-center">
         <div className="overflow-x-auto">

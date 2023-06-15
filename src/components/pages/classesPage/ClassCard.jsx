@@ -1,7 +1,74 @@
-import React from "react";
+import Swal from "sweetalert2";
 import PrimaryBtn from "../../utils/PrimaryBtn";
+import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { toast } from "react-hot-toast";
+import useFindUserRole from "../../../hooks/useFindUserRole";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const ClassCard = ({ singleClass }) => {
+  const { user } = useAuth();
+  const [userRole] = useFindUserRole();
+
+  const navigate = useNavigate();
+
+  const [axiosInstance] = useAxiosSecure();
+
+  const [isDisable, setIsDisable] = useState(false);
+  useEffect(() => {
+    switch (userRole) {
+      case "admin":
+        setIsDisable(true);
+        break;
+      case "instructor":
+        setIsDisable(true);
+        break;
+      default:
+        setIsDisable(false);
+    }
+  }, [userRole]);
+  const handleSelectClass = () => {
+    console.log("Clicked Class Btn");
+    if (!user) {
+      Swal.fire({
+        title: "You Need to login first",
+        icon: "info",
+
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Login!',
+        confirmButtonAriaLabel: "Login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+      return;
+    }
+
+    const { className, image, _id, price, instructorName } = singleClass;
+    const userEmail = user?.email;
+    const cartData = {
+      className,
+      image,
+      classId: _id,
+      price,
+      instructorName,
+      userEmail,
+    };
+
+    axiosInstance.post("/add-to-cart", cartData).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        toast.success(`${className} has been added to the cart`, {
+          position: "top-center",
+        });
+      }
+    });
+  };
 
   return (
     <div>
@@ -14,11 +81,10 @@ const ClassCard = ({ singleClass }) => {
               src={singleClass.image}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                 {singleClass.className}
               </h1>
-              
+
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg
@@ -118,15 +184,15 @@ const ClassCard = ({ singleClass }) => {
                 </span>
               </div>
               <div className="pb-5 border-b-2 border-gray-100 mb-5">
-                  <p>
-                    <span className="font-semibold">Instructor Name: </span>
-                    {singleClass.instructorName}
-                  </p>
+                <p>
+                  <span className="font-semibold">Instructor Name: </span>
+                  {singleClass.instructorName}
+                </p>
 
-                  <p>
+                <p>
                   <span className="font-semibold">Available Seat: </span>
-                    {singleClass.availableSeats}
-                  </p>
+                  {singleClass.availableSeats}
+                </p>
               </div>
               <p className="leading-relaxed border-b-2 pb-6 border-gray-100 mb-5">
                 {singleClass.description}
@@ -150,10 +216,15 @@ const ClassCard = ({ singleClass }) => {
                   Select Class
                 </button> */}
                 <span className="flex ml-auto">
-                    <PrimaryBtn text={"Select Class"}></PrimaryBtn>
+                  <button
+                    onClick={handleSelectClass}
+                    className="btn bg-green-900 hover:bg-green-950 text-white"
+                    disabled={isDisable}
+                  >
+                    Select Class
+                  </button>
                 </span>
-               
-                
+
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                   <svg
                     fill="currentColor"

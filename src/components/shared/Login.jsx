@@ -14,7 +14,6 @@ const Login = () => {
   const [hidePassword, setHidePassword] = useState(true);
   const location = useLocation();
 
-  console.log(location);
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
   const handleHidePassword = () => {
