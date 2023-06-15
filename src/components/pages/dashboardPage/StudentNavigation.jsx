@@ -10,7 +10,7 @@ const StudentNavigation = () => {
     <div>
       <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline ">
-          <Link className="flex items-center" to={"/dashboard"}>
+          <Link className="flex items-center" to={"/dashboard/my-selected-classes"}>
             <BsFillCartCheckFill size={20} className="mr-2 mb-1" />
             My Selected Classes
           </Link>
