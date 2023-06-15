@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useCartData = () => {
   const [axiosInstance] = useAxiosSecure();
   const {loading} = useAuth(); 
-  const {data:cartData, refetch} = useQuery({
+  const {data:cartData =[], refetch} = useQuery({
     queryKey: ["cartData", loading],
     enabled: !loading, 
     queryFn: async () => {
