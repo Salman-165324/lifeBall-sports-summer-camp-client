@@ -1,10 +1,10 @@
-
+import { Link } from "react-router-dom";
 import useCartData from "../../../hooks/useCartData";
 import SelectedClassTableRow from "./SelectedClassTableRow";
 
 const MySelectedClass = () => {
   const [cartData] = useCartData();
-  console.log(" MY Cart Data",cartData);
+  console.log(" MY Cart Data", cartData);
   const totalPay = cartData.reduce((sum, item) => sum + item.price, 0);
   return (
     <div>
@@ -14,10 +14,14 @@ const MySelectedClass = () => {
         </h2>
       </div>
       <div className="ml-8 mt-16 text-3xl flex gap-10 items-center">
-        <div className="">Total Pay: ${totalPay}</div>
-        <button className="px-6 btn bg-green-900 hover:bg-green-950 text-white">
-          Pay
-        </button>
+        <div>
+          <span>To Pay: ${totalPay}</span>
+        </div>
+        <Link to={"/dashboard/payment"}>
+          <button className="px-6 btn bg-green-900 hover:bg-green-950 text-white">
+            Pay
+          </button>
+        </Link>
       </div>
       {/* Table */}
       <div className="mt-10 px-5 overflow-x-auto">
