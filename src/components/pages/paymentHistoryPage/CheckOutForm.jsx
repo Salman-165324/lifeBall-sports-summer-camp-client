@@ -3,15 +3,17 @@ import React, { useEffect, useState } from "react";
 import useAxiosInstance from "../../../hooks/useAxiosInstance";
 import useCartData from "../../../hooks/useCartData";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const CheckOutForm = () => {
-  const [axiosInstance] = useAxiosInstance();
+const CheckOutForm = ({axiosInstance}) => {
   const [clientSecret, setClientSecret] = useState("");
+  const [transectionId, setTransactionId] = useState(""); 
+  const [successText, setSuccessText] = useState("")
   const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
   const [errorText, setErrorText] = useState("");
-  const [cartData] = useCartData();
+  const [cartData, refetch] = useCartData();
   const totalPrice = cartData.reduce((sum, item) => sum + item.price, 0);
   const [processing, setProcessing] = useState(false);
   // console.log("Stripe", stripe);
@@ -21,11 +23,11 @@ const CheckOutForm = () => {
       axiosInstance
         .post("/create-payment-intent", { totalPrice })
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
-  }, [totalPrice]);
+  }, [totalPrice, axiosInstance]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,10 +75,21 @@ const CheckOutForm = () => {
     console.log(paymentIntent);
     if (paymentIntent.status == "succeeded") {
       setProcessing(false);
+      setTransactionId(paymentIntent.id); 
+      setSuccessText(`Congratulations! You payment is successful.`)
+       const paymentData = {
+         transectionId: paymentIntent.id, 
+         email: user?.email, 
+         
+       }
+
     }
   };
   return (
     <div className="lg:w-1/2 px-2 mx-auto mt-16">
+      <div>
+        <p className="text-3xl my-5">To pay: ${totalPrice}</p>
+      </div>
       <form
         className=" border-2 border-green-950 p-6 rounded-lg"
         onSubmit={handleSubmit}
@@ -108,6 +121,9 @@ const CheckOutForm = () => {
       {errorText && (
         <p className="mt-2 pl-1 text-red-500 font-semibold">{errorText}</p>
       )}
+      {
+        successText && <p className="mt-2 pl-1 text-green-700 font-semibold">{successText} Transaction ID: ${transectionId}</p>
+      }
     </div>
   );
 };
