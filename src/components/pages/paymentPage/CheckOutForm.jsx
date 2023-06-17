@@ -71,17 +71,37 @@ const CheckOutForm = ({axiosInstance}) => {
     if (confirmPaymentError) {
       setErrorText(confirmPaymentError?.message);
       setProcessing(false);
+      setSuccessText("")
     }
     console.log(paymentIntent);
     if (paymentIntent.status == "succeeded") {
       setProcessing(false);
       setTransactionId(paymentIntent.id); 
       setSuccessText(`Congratulations! You payment is successful.`)
+      setErrorText("")
+      // todo: Find out why it isn't working in here 
+      refetch(); 
+
        const paymentData = {
          transectionId: paymentIntent.id, 
          email: user?.email, 
-         
+         cartItemsId: cartData.map(cartItem => cartItem._id), 
+         orderedClassesId: cartData.map(cartItem => cartItem.classId), 
+         date : new Date(), 
+         amount: totalPrice, 
+         className: cartData.map(cartItem => cartItem.className )
        }
+
+       axiosInstance.post("/payments", paymentData)
+       .then( res => {
+         console.log(res.data);
+        // todo: remove this refetch from here. If other refetch() from above works. 
+         refetch();  
+       }).catch(error => {
+         console.log(error);
+        //  todo: redirect to a new page to show success status and clean the form. 
+         setErrorText("Something went wrong savig to payment to database. Don't worry contact support with your transactionId"); 
+       })
 
     }
   };
@@ -113,7 +133,7 @@ const CheckOutForm = ({axiosInstance}) => {
         <button
           className="btn bg-green-900 hover:bg-green-950 text-white btn-sm mt-5"
           type="submit"
-          disabled={!stripe || !clientSecret || processing}
+          disabled={!stripe || !clientSecret || processing }
         >
           Pay
         </button>

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
 
+// Get's currently signed in user's cartData not all the carts.
 const useCartData = () => {
   const [axiosInstance] = useAxiosSecure();
   const {loading} = useAuth(); 
