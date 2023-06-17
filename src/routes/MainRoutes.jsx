@@ -1,6 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../components/pages/Home";
+import Home from "../components/pages/homePage/Home";
 import SignUp from "../components/shared/SignUp";
 import Login from "../components/shared/Login";
 import Error from "../components/pages/errorPage/Error";
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home></Home>,
+    element: <Home></Home>
   },
   {
     path: "dashboard",

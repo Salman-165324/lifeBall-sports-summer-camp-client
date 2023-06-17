@@ -4,7 +4,7 @@
 
 
 .primary-container{
-    @apply mx-auto px-0 md:px-16 lg:px-24 py-20 md:py-24 lg:py-28 container
+    @apply mx-auto px-0 md:px-16 lg:px-24 py-20 container
 }
 
 .secondary-container{

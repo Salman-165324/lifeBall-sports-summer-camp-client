@@ -1,9 +1,6 @@
-import React from "react";
-import AwesomeSlider from "react-awesome-slider";
 import "react-awesome-slider/dist/custom-animations/cube-animation.css";
 import bg1 from "../../../assets/bg-1.jpg";
 import bg2 from "../../../assets/bg-2.jpg";
-import Typewriter from "react-ts-typewriter";
 import PrimaryBtn from "../../utils/PrimaryBtn";
 import Navbar from "../../shared/Navbar";
 import { Fade, Slide } from "react-awesome-reveal";
@@ -11,11 +8,11 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <div>
+    <div className="">
       <div className="absolute z-20 w-full">
         <Navbar></Navbar>
       </div>
-      <div className="carousel absolute inset-0 w-full">
+      <div className="carousel inset-0 w-full">
         <div id="slide1" className="carousel-item relative w-full">
           <div className="absolute inset-0 bg-green-950 bg-opacity-60"></div>
           <img src={bg1} className="w-full object-cover  h-[100vh]" />
