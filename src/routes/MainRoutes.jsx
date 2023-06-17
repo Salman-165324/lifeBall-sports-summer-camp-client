@@ -13,6 +13,7 @@ import MySelectedClass from "../components/pages/mySelectedClassPage/MySelectedC
 
 import PaymentPage from "../components/pages/paymentPage/PaymentPage";
 import PaymentHistory from "../components/pages/paymentHistoryPage/PaymentHistory";
+import EnrolledClassesPage from "../components/pages/enrolledClassesPage/EnrolledClassesPage";
 
 
 const router = createBrowserRouter([
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/payment-history", 
         element: <PaymentHistory></PaymentHistory>
+      }, 
+      {
+        path: "/dashboard/enrolled-classes", 
+        element: <EnrolledClassesPage></EnrolledClassesPage>
       }
     ],
   },

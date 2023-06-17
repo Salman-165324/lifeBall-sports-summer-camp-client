@@ -18,7 +18,7 @@ const StudentNavigation = () => {
       </li>
       <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline ">
-          <Link className="flex items-center" to={"/dashboard"}>
+          <Link className="flex items-center" to={"/dashboard/enrolled-classes"}>
             <GiScrollQuill size={22} className="mr-2 mb-1" />
             Enrolled Classes
           </Link>
