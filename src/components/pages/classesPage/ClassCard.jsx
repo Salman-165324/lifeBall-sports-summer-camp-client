@@ -11,6 +11,7 @@ import { useEffect } from "react";
 const ClassCard = ({ singleClass }) => {
   const { user } = useAuth();
   const [userRole] = useFindUserRole();
+  const redClass = "bg-red-200 rounded-r-xl"
 
   const navigate = useNavigate();
 
@@ -28,7 +29,11 @@ const ClassCard = ({ singleClass }) => {
       default:
         setIsDisable(false);
     }
-  }, [userRole]);
+
+    if(singleClass.availableSeats < 1){
+      setIsDisable(true)
+    }
+  }, [userRole, singleClass.availableSeats]);
   const handleSelectClass = () => {
     console.log("Clicked Class Btn");
     if (!user) {
@@ -80,7 +85,7 @@ const ClassCard = ({ singleClass }) => {
               className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
               src={singleClass.image}
             />
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div className={`lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 ${singleClass.availableSeats < 1 && redClass}`}>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                 {singleClass.className}
               </h1>
