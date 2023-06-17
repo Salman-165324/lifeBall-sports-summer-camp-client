@@ -5,10 +5,10 @@ import useCartData from "../../../hooks/useCartData";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const CheckOutForm = ({axiosInstance}) => {
+const CheckOutForm = ({ axiosInstance }) => {
   const [clientSecret, setClientSecret] = useState("");
-  const [transectionId, setTransactionId] = useState(""); 
-  const [successText, setSuccessText] = useState("")
+  const [transectionId, setTransactionId] = useState("");
+  const [successText, setSuccessText] = useState("");
   const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
@@ -71,38 +71,41 @@ const CheckOutForm = ({axiosInstance}) => {
     if (confirmPaymentError) {
       setErrorText(confirmPaymentError?.message);
       setProcessing(false);
-      setSuccessText("")
+      setSuccessText("");
     }
     console.log(paymentIntent);
     if (paymentIntent.status == "succeeded") {
       setProcessing(false);
-      setTransactionId(paymentIntent.id); 
-      setSuccessText(`Congratulations! You payment is successful.`)
-      setErrorText("")
-      // todo: Find out why it isn't working in here 
-      refetch(); 
+      setTransactionId(paymentIntent.id);
+      setSuccessText(`Congratulations! You payment is successful.`);
+      setErrorText("");
+      // todo: Find out why it isn't working in here
+      refetch();
 
-       const paymentData = {
-         transectionId: paymentIntent.id, 
-         email: user?.email, 
-         cartItemsId: cartData.map(cartItem => cartItem._id), 
-         orderedClassesId: cartData.map(cartItem => cartItem.classId), 
-         date : new Date(), 
-         amount: totalPrice, 
-         className: cartData.map(cartItem => cartItem.className )
-       }
+      const paymentData = {
+        transectionId: paymentIntent.id,
+        email: user?.email,
+        cartItemsId: cartData.map((cartItem) => cartItem._id),
+        orderedClassesId: cartData.map((cartItem) => cartItem.classId),
+        date: new Date(),
+        amount: totalPrice,
+        className: cartData.map((cartItem) => cartItem.className),
+      };
 
-       axiosInstance.post("/payments", paymentData)
-       .then( res => {
-         console.log(res.data);
-        // todo: remove this refetch from here. If other refetch() from above works. 
-         refetch();  
-       }).catch(error => {
-         console.log(error);
-        //  todo: redirect to a new page to show success status and clean the form. 
-         setErrorText("Something went wrong savig to payment to database. Don't worry contact support with your transactionId"); 
-       })
-
+      axiosInstance
+        .post("/payments", paymentData)
+        .then((res) => {
+          console.log(res.data);
+          refetch();
+          // todo: remove this refetch from here. If other refetch() from above works.
+        })
+        .catch((error) => {
+          console.log(error);
+          //  todo: redirect to a new page to show success status and clean the form.
+          setErrorText(
+            "Something went wrong savig to payment to database. Don't worry contact support with your transactionId"
+          );
+        });
     }
   };
   return (
@@ -133,7 +136,7 @@ const CheckOutForm = ({axiosInstance}) => {
         <button
           className="btn bg-green-900 hover:bg-green-950 text-white btn-sm mt-5"
           type="submit"
-          disabled={!stripe || !clientSecret || processing }
+          disabled={!stripe || !clientSecret || processing}
         >
           Pay
         </button>
@@ -141,9 +144,11 @@ const CheckOutForm = ({axiosInstance}) => {
       {errorText && (
         <p className="mt-2 pl-1 text-red-500 font-semibold">{errorText}</p>
       )}
-      {
-        successText && <p className="mt-2 pl-1 text-green-700 font-semibold">{successText} Transaction ID: ${transectionId}</p>
-      }
+      {successText && (
+        <p className="mt-2 pl-1 text-green-700 font-semibold">
+          {successText} Transaction ID: ${transectionId}
+        </p>
+      )}
     </div>
   );
 };
