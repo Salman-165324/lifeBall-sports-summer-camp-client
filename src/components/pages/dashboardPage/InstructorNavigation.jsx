@@ -7,9 +7,9 @@ const InstructorNavigation = () => {
     <>
       <li className="group">
         <div className=" group-hover:text-yellow-100 hover:underline ">
-          <Link className="flex items-center" to={"/dashboard"}>
+          <Link className="flex items-center" to={"/dashboard/my-classes"}>
             <GiScrollQuill size={22} className="mr-2 mb-1" />
-            Manage Classes
+            My Classes
           </Link>
         </div>
       </li>

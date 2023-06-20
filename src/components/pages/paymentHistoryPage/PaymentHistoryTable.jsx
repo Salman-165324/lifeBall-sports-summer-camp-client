@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import React from 'react';
+
 
 const PaymentHistoryTable = ({item, index}) => {
 

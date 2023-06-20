@@ -14,7 +14,8 @@ import MySelectedClass from "../components/pages/mySelectedClassPage/MySelectedC
 import PaymentPage from "../components/pages/paymentPage/PaymentPage";
 import PaymentHistory from "../components/pages/paymentHistoryPage/PaymentHistory";
 import EnrolledClassesPage from "../components/pages/enrolledClassesPage/EnrolledClassesPage";
-
+import RoleRoutes from "../Providers/RoleRoutes";
+import MyClasses from "../components/pages/myClassesPage/MyClasses";
 
 const router = createBrowserRouter([
   {
@@ -46,16 +47,22 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home></Home>
+    element: <Home></Home>,
   },
   {
     path: "dashboard",
     element: (
       <PrivateRoute>
-        <Dashboard></Dashboard>
+   
+          <Dashboard></Dashboard>
+        
       </PrivateRoute>
     ),
     children: [
+      {
+          path: '/dashboard', 
+          element: <RoleRoutes></RoleRoutes>
+      },
       {
         path: "/dashboard/manage-user",
         element: <ManageUser></ManageUser>,
@@ -70,12 +77,16 @@ const router = createBrowserRouter([
         element: <PaymentPage></PaymentPage>,
       },
       {
-        path: "/dashboard/payment-history", 
-        element: <PaymentHistory></PaymentHistory>
-      }, 
+        path: "/dashboard/payment-history",
+        element: <PaymentHistory></PaymentHistory>,
+      },
       {
-        path: "/dashboard/enrolled-classes", 
-        element: <EnrolledClassesPage></EnrolledClassesPage>
+        path: "/dashboard/enrolled-classes",
+        element: <EnrolledClassesPage></EnrolledClassesPage>,
+      },
+      {
+        path: '/dashboard/my-classes', 
+        element: <MyClasses></MyClasses>
       }
     ],
   },
