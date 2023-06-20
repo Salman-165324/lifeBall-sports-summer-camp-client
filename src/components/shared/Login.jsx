@@ -51,7 +51,7 @@ const Login = () => {
         toast.success("You have been successfully signed in", {
           position: "top-center", // Set the position to top-center
         });
-        const newUser = { name: user.displayName, email: user.email };
+        const newUser = { name: user.displayName, email: user.email, role: 'student' };
         axiosInstance
           .post("/add-user", { newUser })
           .then((res) => {

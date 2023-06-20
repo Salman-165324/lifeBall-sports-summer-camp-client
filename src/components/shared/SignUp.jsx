@@ -31,7 +31,7 @@ const SignUp = () => {
         console.log(user);
         addUserNameAndPicture(data.name, data.photoURL)
           .then(() => {
-            const newUser = { name: data?.name, email: data.email };
+            const newUser = { name: data?.name, email: data.email, role: 'student'};
             axiosInstance
               .post("/add-user", { newUser })
               .then((res) => {
@@ -75,7 +75,7 @@ const SignUp = () => {
           position: "top-center", // Set the position to top-center
         });
 
-        const newUser = { name: user.displayName, email: user.email };
+        const newUser = { name: user?.displayName, email: user.email, role: 'student'};
         axiosInstance
           .post("/add-user", { newUser })
           .then((res) => {

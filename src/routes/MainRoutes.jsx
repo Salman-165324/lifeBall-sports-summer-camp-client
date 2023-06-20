@@ -18,6 +18,7 @@ import RoleRoutes from "./RoleRoutes";
 import MyClasses from "../components/pages/myClassesPage/MyClasses";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
+import StudentRoute from "./StudentRoute";
 
 const router = createBrowserRouter([
   {
@@ -73,16 +74,28 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/my-selected-classes",
-        element: <MySelectedClass></MySelectedClass>,
+        element: (
+          <StudentRoute>
+            <MySelectedClass></MySelectedClass>
+          </StudentRoute>
+        ),
       },
 
       {
         path: "/dashboard/payment",
-        element: <PaymentPage></PaymentPage>,
+        element: (
+          <StudentRoute>
+            <PaymentPage></PaymentPage>
+          </StudentRoute>
+        ),
       },
       {
         path: "/dashboard/payment-history",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <StudentRoute>
+            <PaymentHistory></PaymentHistory>
+          </StudentRoute>
+        ),
       },
       {
         path: "/dashboard/enrolled-classes",
