@@ -8,21 +8,7 @@ import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const { user, logout } = useAuth();
 
-  const handleLogout = () => {
-    logout()
-      .then(() => {
-        toast("You have been logged out", {
-          position: "top-center",
-          type: "warning",
-          duration: 4000,
-        });
-      })
-      .catch((error) => {
-        toast.error(error.message, {
-          position: "top-center",
-        });
-      });
-  };
+
   // const navItems = (
   //   <>
   //     <li className="group">

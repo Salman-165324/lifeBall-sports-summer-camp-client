@@ -37,11 +37,13 @@ const NavigationItems = () => {
           <Link to={"/classes"}>Classes</Link>
         </div>
       </li>
-      <li className="group">
-        <div className="group-hover:text-yellow-100 hover:underline">
-          <Link to={"/dashboard"}>Dashboard</Link>
-        </div>
-      </li>
+      {user && (
+        <li className="group">
+          <div className="group-hover:text-yellow-100 hover:underline">
+            <Link to={"/dashboard"}>Dashboard</Link>
+          </div>
+        </li>
+      )}
       {user ? (
         <>
           <li className="grow-0 w-fit pt-4 md:pt-0 ">
