@@ -14,8 +14,10 @@ import MySelectedClass from "../components/pages/mySelectedClassPage/MySelectedC
 import PaymentPage from "../components/pages/paymentPage/PaymentPage";
 import PaymentHistory from "../components/pages/paymentHistoryPage/PaymentHistory";
 import EnrolledClassesPage from "../components/pages/enrolledClassesPage/EnrolledClassesPage";
-import RoleRoutes from "../Providers/RoleRoutes";
+import RoleRoutes from "./RoleRoutes";
 import MyClasses from "../components/pages/myClassesPage/MyClasses";
+import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
 
 const router = createBrowserRouter([
   {
@@ -53,19 +55,21 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: (
       <PrivateRoute>
-   
-          <Dashboard></Dashboard>
-        
+        <Dashboard></Dashboard>
       </PrivateRoute>
     ),
     children: [
       {
-          path: '/dashboard', 
-          element: <RoleRoutes></RoleRoutes>
+        path: "/dashboard",
+        element: <RoleRoutes></RoleRoutes>,
       },
       {
         path: "/dashboard/manage-user",
-        element: <ManageUser></ManageUser>,
+        element: (
+          <AdminRoute>
+            <ManageUser></ManageUser>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/my-selected-classes",
@@ -85,9 +89,13 @@ const router = createBrowserRouter([
         element: <EnrolledClassesPage></EnrolledClassesPage>,
       },
       {
-        path: '/dashboard/my-classes', 
-        element: <MyClasses></MyClasses>
-      }
+        path: "/dashboard/my-classes",
+        element: (
+          <InstructorRoute>
+            <MyClasses></MyClasses>
+          </InstructorRoute>
+        ),
+      },
     ],
   },
 ]);
