@@ -15,12 +15,13 @@ const PaymentHistory = () => {
       console.log(res.data);
       setPaymentData(res.data);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <div>
-        {/* Todo: Make this headlines a seperate component */}
+        {/* Todo: Make this headlines a separate component */}
         <h2 className="text-4xl font-bold mt-16 ml-3 lg:text-center lg:ml-0">
           Hello {user?.displayName}! This in your payment history.
         </h2>
