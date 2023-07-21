@@ -3,7 +3,7 @@ import axios from "axios"
 const useAxiosInstance = () =>{
 
     const axiosInstance = axios.create({
-        baseURL:"http://localhost:5000/"
+        baseURL:"https://server-summer-camp-one.vercel.app"
     })
 
     return [axiosInstance]; 
