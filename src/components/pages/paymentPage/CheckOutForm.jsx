@@ -1,11 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
-import useAxiosInstance from "../../../hooks/useAxiosInstance";
+import { useEffect, useState } from "react";
 import useCartData from "../../../hooks/useCartData";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-const CheckOutForm = ({ axiosInstance }) => {
+const CheckOutForm = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [transectionId, setTransactionId] = useState("");
   const [successText, setSuccessText] = useState("");
@@ -16,18 +15,33 @@ const CheckOutForm = ({ axiosInstance }) => {
   const [cartData, refetch] = useCartData();
   const totalPrice = cartData.reduce((sum, item) => sum + item.price, 0);
   const [processing, setProcessing] = useState(false);
+  const [axiosSecure] = useAxiosSecure();
+  
   // console.log("Stripe", stripe);
-
+  console.log("Axios Instance", axiosSecure);
   useEffect(() => {
-    if (totalPrice) {
-      axiosInstance
+    console.log("Inside UseEffect", totalPrice);
+    if (totalPrice !== null && totalPrice > 0) {
+      axiosSecure
         .post("/create-payment-intent", { totalPrice })
         .then((res) => {
           console.log(res.data.clientSecret);
+          console.log("Inside AxiosInstance");
           setClientSecret(res.data.clientSecret);
+          setErrorText("")
+          setProcessing(false)
+        })
+        .catch((error) => {
+          // Handle any errors during PaymentIntent creation
+          setErrorText("Error creating PaymentIntent. Please try again or reload the page.");
+          console.log("Create payment intent error", error);
         });
+    } else {
+      // Handle totalPrice being zero or null (e.g., empty cart)
+      setErrorText("Your Cart is empty.");
+      setProcessing(true)
     }
-  }, [totalPrice, axiosInstance]);
+  }, [totalPrice, axiosSecure]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,7 +57,7 @@ const CheckOutForm = ({ axiosInstance }) => {
     }
 
     setProcessing(true);
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error} = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -69,11 +83,12 @@ const CheckOutForm = ({ axiosInstance }) => {
       },
     });
     if (confirmPaymentError) {
-      setErrorText(confirmPaymentError?.message);
+      console.error("Error confirming payment:", confirmPaymentError);
+      setErrorText("Error confirming payment. Please try again or reload the page.");
       setProcessing(false);
       setSuccessText("");
     }
-    console.log(paymentIntent);
+    // console.log(paymentIntent);
     if (paymentIntent.status == "succeeded") {
       setProcessing(false);
       setTransactionId(paymentIntent.id);
@@ -92,7 +107,7 @@ const CheckOutForm = ({ axiosInstance }) => {
         className: cartData.map((cartItem) => cartItem.className),
       };
 
-      axiosInstance
+      axiosSecure
         .post("/payments", paymentData)
         .then((res) => {
           console.log(res.data);
@@ -103,7 +118,7 @@ const CheckOutForm = ({ axiosInstance }) => {
           console.log(error);
           //  todo: redirect to a new page to show success status and clean the form.
           setErrorText(
-            "Something went wrong savig to payment to database. Don't worry contact support with your transactionId"
+            "Something went wrong saving your payment to database. Don't worry contact support with your transactionId"
           );
         });
     }
@@ -141,14 +156,15 @@ const CheckOutForm = ({ axiosInstance }) => {
           Pay
         </button>
       </form>
-      {errorText && (
-        <p className="mt-2 pl-1 text-red-500 font-semibold">{errorText}</p>
-      )}
       {successText && (
         <p className="mt-2 pl-1 text-green-700 font-semibold">
           {successText} Transaction ID: ${transectionId}
         </p>
       )}
+      {errorText && (
+        <p className="mt-2 pl-1 text-red-500 font-semibold">{errorText}</p>
+      )}
+    
     </div>
   );
 };

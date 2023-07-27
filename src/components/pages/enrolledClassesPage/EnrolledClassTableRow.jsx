@@ -1,4 +1,3 @@
-import React from "react";
 
 const EnrolledClassTableRow = ({ singleClass, index }) => {
   const { image, className, instructorName, price } = singleClass;

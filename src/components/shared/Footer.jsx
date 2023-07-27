@@ -1,4 +1,3 @@
-import React from "react";
 
 import websiteLogo from "../../assets/soccer.png";
 

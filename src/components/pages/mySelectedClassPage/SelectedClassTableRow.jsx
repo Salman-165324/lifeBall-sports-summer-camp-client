@@ -1,11 +1,10 @@
-import React from "react";
 import useCartData from "../../../hooks/useCartData";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const SelectedClassTableRow = ({ item, index }) => {
   const [, refetch] = useCartData();
-  const [axiosInstance] = useAxiosSecure(); 
+  const [axiosSecure] = useAxiosSecure(); 
   const { _id, image, className, price, instructorName, userEmail } = item;
   const handleDelete = () => {
     Swal.fire({
@@ -18,7 +17,7 @@ const SelectedClassTableRow = ({ item, index }) => {
     }).then((result) => {
       if (result.isConfirmed) {
        
-        axiosInstance.delete(`/delete-cart-item/${_id}?userEmail=${userEmail}`)
+        axiosSecure.delete(`/delete-cart-item/${_id}?userEmail=${userEmail}`)
         .then( res => {
             console.log(res.data)
             if(res.data.deletedCount){

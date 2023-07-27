@@ -1,12 +1,10 @@
-import React from "react";
 import CheckOutForm from "./CheckOutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PaymentPage = () => {
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
-  const [axiosInstance] = useAxiosSecure(); 
+  console.log("Inside payment Page debugging");
   return (
     <div>
       <div>
@@ -15,7 +13,7 @@ const PaymentPage = () => {
         </h2>
       </div>
       <Elements stripe={stripePromise}>
-        <CheckOutForm axiosInstance = {axiosInstance}></CheckOutForm>
+        <CheckOutForm ></CheckOutForm>
       </Elements>
     </div>
   );

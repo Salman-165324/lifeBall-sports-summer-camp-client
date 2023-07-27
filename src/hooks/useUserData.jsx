@@ -3,14 +3,14 @@ import useAxiosSecure from "./useAxiosSecure"
 
 const useUserData = () =>{
 
-    const [axiosInstance] = useAxiosSecure(); 
+    const [axiosSecure] = useAxiosSecure(); 
 
     const {data: allUsers = [], refetch} = useQuery({
 
         queryKey: ['userData'], 
         queryFn: async () => {
 
-            const res = await axiosInstance('/users')
+            const res = await axiosSecure('/users')
             return res.data; 
 
         }

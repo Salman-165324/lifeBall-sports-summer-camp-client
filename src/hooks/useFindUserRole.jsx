@@ -3,13 +3,13 @@ import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useFindUserRole = () => {
-    const [axiosInstance] = useAxiosSecure(); 
+    const [axiosSecure] = useAxiosSecure(); 
     const {user, loading} = useAuth();
     const {data:userRole="not found", isLoading:roleDataLoading} = useQuery({
         queryKey: ['findUserRole', user, loading],
         enabled:!loading, 
         queryFn: async () => {
-            const res = await axiosInstance(`/find-role/${user?.email}`)
+            const res = await axiosSecure(`/find-role/${user?.email}`)
             return res.data; 
         }
         

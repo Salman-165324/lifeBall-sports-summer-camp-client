@@ -1,4 +1,3 @@
-import React from "react";
 import Spinner from "../components/utils/Spinner";
 import useFindUserRole from "../hooks/useFindUserRole";
 import { Navigate } from "react-router-dom";

@@ -4,13 +4,13 @@ import useAuth from "./useAuth";
 
 // Get's currently signed in user's cartData not all the carts.
 const useCartData = () => {
-  const [axiosInstance] = useAxiosSecure();
+  const [axiosSecure] = useAxiosSecure();
   const {loading} = useAuth(); 
   const {data:cartData =[], refetch} = useQuery({
     queryKey: ["cartData", loading],
     enabled: !loading, 
     queryFn: async () => {
-      const res = await axiosInstance("/cart-data");
+      const res = await axiosSecure("/cart-data");
       return res.data; 
     },
   });

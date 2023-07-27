@@ -1,4 +1,3 @@
-import React from "react";
 import useClassData from "../../../hooks/useClassData";
 import SectionTitle from "../../utils/SectionTitle";
 import ClassCard from "./ClassCard";

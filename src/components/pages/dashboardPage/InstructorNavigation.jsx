@@ -1,4 +1,3 @@
-import React from "react";
 import { GiScrollQuill } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { AiFillFileAdd } from "react-icons/ai";

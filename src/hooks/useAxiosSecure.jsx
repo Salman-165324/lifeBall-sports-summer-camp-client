@@ -1,22 +1,29 @@
 import { useEffect } from "react";
 import useAuth from "./useAuth";
-import useAxiosInstance from "./useAxiosInstance";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const axiosSecure = axios.create({
+  // baseURL: 'http://localhost:5000', 
+  baseURL:"https://server-summer-camp-one.vercel.app"
+
+
+});
 
 const useAxiosSecure = () => {
+
   const {logout, loading, } = useAuth();
   const navigate = useNavigate();
-  const [axiosInstance] = useAxiosInstance();
   useEffect(() => {
     const token = localStorage.getItem("access-token");
     if (token) {
-      axiosInstance.interceptors.request.use((config) => {
+      axiosSecure.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${token}`;
         return config;
       });
     }
 
-    axiosInstance.interceptors.response.use(
+    axiosSecure.interceptors.response.use(
       (response) => response,
       async (error) => {
         console.log(error);
@@ -31,9 +38,11 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [logout, navigate, loading, axiosInstance]);
+  // }, [logout, navigate, loading, axiosInstance]);
+}, [logout, navigate, loading]); // removed axiosInstance for stopping continuously  refetching of payment Form component. Also moved axiosInstance from the useEffect hook. Also created a new AxiosInstance.
 
-  return [axiosInstance];
+
+  return [axiosSecure];
 };
 
 export default useAxiosSecure;

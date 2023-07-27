@@ -1,22 +1,21 @@
-import React from "react";
 import { useEffect } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import EnrolledClassTableRow from "./EnrolledClassTableRow";
 
 const EnrolledClassesPage = () => {
-  const [axiosInstance] = useAxiosSecure();
+  const [axiosSecure] = useAxiosSecure();
   const [classes, setClasses] = useState([]);
   useEffect(() => {
-    axiosInstance("/enrolled-classes").then((res) => {
+    axiosSecure("/enrolled-classes").then((res) => {
       console.log(res.data);
       setClasses(res.data);
     });
-  }, []);
+  }, [axiosSecure]);
   return (
     <div>
       <div>
-        {/* Todo: Make this headlines a seperate component */}
+        {/* Todo: Make this headlines a separate component */}
         <h2 className="text-4xl font-bold mt-16 ml-3 lg:text-center lg:ml-0">
           Your Enrolled Classes
         </h2>

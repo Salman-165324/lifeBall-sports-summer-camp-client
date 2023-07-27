@@ -1,4 +1,3 @@
-import React from "react";
 import SectionTitle from "../../utils/SectionTitle";
 import useInstructorsData from "../../../hooks/useInstructorsData";
 import PopularInstructorCard from "./PopularInstructorCard";

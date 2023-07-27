@@ -1,4 +1,3 @@
-import React from "react";
 import useUserData from "../../../hooks/useUserData";
 import NavigationItems from "../../utils/NavigationItems";
 import AdminNavigation from "./AdminNavigation";

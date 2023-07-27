@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useAxiosInstance from "../../../hooks/useAxiosInstance";
 import SectionTitle from "../../utils/SectionTitle";
 import { useState } from "react";
@@ -12,7 +12,7 @@ const PopularClasses = () => {
       console.log(res.data);
       setPopularClasses(res.data);
     });
-  }, []);
+  }, [axiosInstance]);
   return (
     <div>
       <div className="">

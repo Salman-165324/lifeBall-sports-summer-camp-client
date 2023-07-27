@@ -1,4 +1,3 @@
-import React from "react";
 
 const PopularInstructorCard = ({instructor}) => {
     const {image, name} = instructor

@@ -1,4 +1,3 @@
-import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -7,11 +6,11 @@ import PaymentHistoryTable from "./PaymentHistoryTable";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
-  const [axiosInstance] = useAxiosSecure();
+  const [axiosSecure] = useAxiosSecure();
   const [paymentData, setPaymentData] = useState([]);
 
   useEffect(() => {
-    axiosInstance("/payment-history").then((res) => {
+    axiosSecure("/payment-history").then((res) => {
       console.log(res.data);
       setPaymentData(res.data);
     });

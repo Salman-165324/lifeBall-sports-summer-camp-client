@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const UserTableRow = ({ user, index }) => {
-  const [axiosInstance] = useAxiosSecure();
+  const [axiosSecure] = useAxiosSecure();
   const [, refetch] = useUserData();
   const { _id, name, email, role } = user;
   const [isInstructorBtnDisable, setInstructorBtnDisable] = useState(false);
@@ -45,7 +45,7 @@ const UserTableRow = ({ user, index }) => {
     const role = btnText.split(" ")[1];
     console.log(role);
     const reqData = { role, _id };
-    axiosInstance.patch("/update-role", { reqData }).then((req) => {
+    axiosSecure.patch("/update-role", { reqData }).then((req) => {
       console.log(req.data);
       if (req.data.modifiedCount) {
         refetch();

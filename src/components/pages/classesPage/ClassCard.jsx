@@ -1,5 +1,4 @@
 import Swal from "sweetalert2";
-import PrimaryBtn from "../../utils/PrimaryBtn";
 import useAuth from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -15,7 +14,7 @@ const ClassCard = ({ singleClass }) => {
 
   const navigate = useNavigate();
 
-  const [axiosInstance] = useAxiosSecure();
+  const [axiosSecure] = useAxiosSecure();
 
   const [isDisable, setIsDisable] = useState(false);
   useEffect(() => {
@@ -65,7 +64,7 @@ const ClassCard = ({ singleClass }) => {
       userEmail,
     };
 
-    axiosInstance.post("/add-to-cart", cartData).then((res) => {
+    axiosSecure.post("/add-to-cart", cartData).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         toast.success(`${className} has been added to the cart`, {
