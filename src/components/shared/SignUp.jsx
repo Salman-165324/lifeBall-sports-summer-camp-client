@@ -98,7 +98,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="primary-container ">
+    <div className="secondary-container pt-20 pb-7 md:pt-36">
       <div className="hero bg-green-200 rounded-xl py-10">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">

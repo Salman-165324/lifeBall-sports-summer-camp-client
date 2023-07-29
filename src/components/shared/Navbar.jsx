@@ -69,7 +69,7 @@ const Navbar = () => {
   //   </>
   // );
   return (
-    <div className="bg-green-950 text-white  lg:opacity-80 w-full fixed">
+    <div className="bg-green-950 text-white  lg:opacity-80 w-full fixed z-50">
       <div className="drawer secondary-container ">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">

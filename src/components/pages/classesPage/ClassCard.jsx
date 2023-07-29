@@ -78,7 +78,7 @@ const ClassCard = ({ singleClass }) => {
   return (
     <div>
       <section className="text-gray-600 body-font overflow-hidden">
-        <div className="container px-5 py-24 mx-auto">
+        <div className="container px-5 py-14 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
               alt="ecommerce"

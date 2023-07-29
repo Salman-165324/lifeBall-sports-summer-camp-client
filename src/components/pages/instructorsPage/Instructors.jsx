@@ -8,7 +8,7 @@ const Instructors = () => {
 
   return (
     <div>
-      <div className="mt-16">
+      <div className="pt-40 md:pt-48">
         <SectionTitle title={"All the Instructors"}></SectionTitle>
       </div>
       <div>

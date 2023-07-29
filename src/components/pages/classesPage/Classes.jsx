@@ -6,7 +6,7 @@ const Classes = () => {
   const [classes] = useClassData();
   return (
     <div>
-      <div className="mt-16">
+      <div className=" pt-40 md:pt-48">
         <SectionTitle title={"All the Classes"}></SectionTitle>
       </div>
       <div>
