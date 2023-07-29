@@ -4,9 +4,9 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import NavigationItems from "../utils/NavigationItems";
 import { FaBars } from "react-icons/fa";
+import CartNav from "../utils/CartNav";
 
 const Navbar = () => {
-
   // const navItems = (
   //   <>
   //     <li className="group">
@@ -103,13 +103,17 @@ const Navbar = () => {
               <div className="ml-2  leading-tight tracking-wider">
                 <span className="font-bold text-xl block">LifeBall</span>
               </div>
+              <div className="md:hidden">
+                <CartNav />
+              </div>
             </div>
             <div className="flex-1 px-2 mx-2 font-bold flex items-center justify-center">
               <div className="flex-none hidden lg:block">
                 <ul className="menu menu-horizontal">
                   {/* Navbar menu content here */}
                   <div className="flex items-center">
-                      <NavigationItems></NavigationItems>
+                    <NavigationItems></NavigationItems>
+                    <CartNav />
                   </div>
                 </ul>
               </div>

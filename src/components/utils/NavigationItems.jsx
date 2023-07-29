@@ -43,6 +43,7 @@ const NavigationItems = () => {
           </div>
         </li>
       )}
+      
       {user ? (
         <>
           <li className="grow-0 w-fit pt-4 md:pt-0 ">
@@ -70,6 +71,7 @@ const NavigationItems = () => {
               )}
             </div>
           </li>
+      
         </>
       ) : (
         <>

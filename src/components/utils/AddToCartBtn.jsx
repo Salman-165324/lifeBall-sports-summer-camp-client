@@ -6,12 +6,14 @@ import useFindUserRole from "../../hooks/useFindUserRole";
 import { useEffect } from "react";
 import { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useCartData from "../../hooks/useCartData";
 
-const AddToCartBtn = ({singleClass}) => {
+const AddToCartBtn = ({ singleClass }) => {
   const { user } = useAuth();
   const [userRole] = useFindUserRole();
   const [isDisable, setIsDisable] = useState(false);
   const [axiosSecure] = useAxiosSecure();
+  const [cartData, refetch] = useCartData();
 
   useEffect(() => {
     switch (userRole) {
@@ -64,6 +66,7 @@ const AddToCartBtn = ({singleClass}) => {
     axiosSecure.post("/add-to-cart", cartData).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
+        refetch();
         toast.success(`${className} has been added to the cart`, {
           position: "top-center",
         });
