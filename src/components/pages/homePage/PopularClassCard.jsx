@@ -1,8 +1,11 @@
+import AddToCartBtn from "../../utils/AddToCartBtn";
 import PrimaryBtn from "../../utils/PrimaryBtn";
 
 const PopularClassCard = ({ popularClass }) => {
   const { className, image, instructorName, price } = popularClass;
+
   return (
+   
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
         <img src={image} alt="Shoes" />
@@ -20,7 +23,7 @@ const PopularClassCard = ({ popularClass }) => {
           </p>
         </div>
       </div>
-      <PrimaryBtn text={"Add to cart"}></PrimaryBtn>
+      <AddToCartBtn singleClass={popularClass} />
     </div>
   );
 };

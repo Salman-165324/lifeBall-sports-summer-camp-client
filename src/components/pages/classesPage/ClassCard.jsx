@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import useFindUserRole from "../../../hooks/useFindUserRole";
 import { useState } from "react";
 import { useEffect } from "react";
+import AddToCartBtn from "../../utils/AddToCartBtn";
 
 const ClassCard = ({ singleClass }) => {
   const { user } = useAuth();
@@ -220,13 +221,14 @@ const ClassCard = ({ singleClass }) => {
                   Select Class
                 </button> */}
                 <span className="flex ml-auto">
-                  <button
+                  {/* <button
                     onClick={handleSelectClass}
                     className="btn bg-green-900 hover:bg-green-950 text-white"
                     disabled={isDisable}
                   >
                     Select Class
-                  </button>
+                  </button> */}
+                  <AddToCartBtn singleClass={singleClass}/>
                 </span>
 
                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
