@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <div className="">
+    <div className="z-10">
       <div className="absolute z-20 w-full">
         <Navbar></Navbar>
       </div>

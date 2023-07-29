@@ -2,7 +2,7 @@
 const PopularInstructorCard = ({instructor}) => {
     const {image, name} = instructor
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card 2xl:w-96 w-[290px] bg-base-100 shadow-xl ">
       <figure>
         <img
           src={image}

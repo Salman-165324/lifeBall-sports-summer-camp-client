@@ -6,8 +6,6 @@ import NavigationItems from "../utils/NavigationItems";
 import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
-
 
   // const navItems = (
   //   <>
@@ -71,7 +69,7 @@ const Navbar = () => {
   //   </>
   // );
   return (
-    <div className="bg-green-950 text-white  lg:opacity-80 w-full ">
+    <div className="bg-green-950 text-white  lg:opacity-80 w-full fixed">
       <div className="drawer secondary-container ">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
