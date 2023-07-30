@@ -64,12 +64,12 @@ const AuthProviders = ({ children }) => {
             setLoading(false);
           })
           .catch((error) => {
-            setLoading(false);
+            setLoading(true);
             console.log(error);
           });
       }else{
         localStorage.removeItem('access-token');
-        setLoading(false);
+        setLoading(true);
       }
     });
 

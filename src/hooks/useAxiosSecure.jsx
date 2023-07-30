@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const axiosSecure = axios.create({
-  // baseURL: 'http://localhost:5000', 
-  baseURL:"https://server-summer-camp-one.vercel.app"
+  baseURL: 'http://localhost:5000', 
+  // baseURL:"https://server-summer-camp-one.vercel.app"
 
 
 });
 
 const useAxiosSecure = () => {
 
-  const {logout, loading, } = useAuth();
+  const {logout, loading, user } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("access-token");
@@ -39,7 +39,7 @@ const useAxiosSecure = () => {
       }
     );
   // }, [logout, navigate, loading, axiosInstance]);
-}, [logout, navigate, loading]); // removed axiosInstance for stopping continuously  refetching of payment Form component. Also moved axiosInstance from the useEffect hook. Also created a new AxiosInstance.
+}, [logout, navigate, loading, user]); // removed axiosInstance for stopping continuously  refetching of payment Form component. Also moved axiosInstance from the useEffect hook. Also created a new AxiosInstance.
 
 
   return [axiosSecure];

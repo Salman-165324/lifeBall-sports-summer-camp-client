@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useFindUserRole from "../../hooks/useFindUserRole";
@@ -14,6 +14,7 @@ const AddToCartBtn = ({ singleClass }) => {
   const [isDisable, setIsDisable] = useState(false);
   const [axiosSecure] = useAxiosSecure();
   const [cartData, refetch] = useCartData();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     switch (userRole) {
@@ -46,7 +47,8 @@ const AddToCartBtn = ({ singleClass }) => {
         confirmButtonAriaLabel: "Login!",
       }).then((result) => {
         if (result.isConfirmed) {
-          Navigate("/login");
+          console.log("From login btn in the swal modal", result);
+          navigate("/login");
         }
       });
       return;

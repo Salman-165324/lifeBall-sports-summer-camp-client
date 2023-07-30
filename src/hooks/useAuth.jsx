@@ -5,7 +5,7 @@ const useAuth = () =>{
 
     const auth = useContext(AuthContext);
 
-    return auth
+    return auth; 
 }
 
 export default useAuth; 

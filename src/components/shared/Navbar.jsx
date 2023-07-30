@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import NavigationItems from "../utils/NavigationItems";
 import { FaBars } from "react-icons/fa";
 import CartNav from "../utils/CartNav";
+import useFindUserRole from "../../hooks/useFindUserRole";
 
 const Navbar = () => {
   // const navItems = (
@@ -68,6 +69,8 @@ const Navbar = () => {
   //     )}
   //   </>
   // );
+  const { user } = useAuth();
+  const [userRole] = useFindUserRole(); 
   return (
     <div className="bg-green-950 text-white  lg:opacity-80 w-full fixed z-50">
       <div className="drawer secondary-container ">
@@ -101,10 +104,13 @@ const Navbar = () => {
             <div>
               <img className="w-14 h-16" src={websiteLogo} alt="" />
               <div className="ml-2  leading-tight tracking-wider">
-                <span className="font-bold text-xl block">LifeBall</span>
+                <Link to={"/home"}>
+                  <span className="font-bold text-xl block">LifeBall</span>
+                </Link>
               </div>
               <div className="md:hidden">
-                <CartNav />
+              {user && userRole !== 'admin' && <CartNav />}
+              {/* <CartNav /> */}
               </div>
             </div>
             <div className="flex-1 px-2 mx-2 font-bold flex items-center justify-center">
@@ -113,7 +119,8 @@ const Navbar = () => {
                   {/* Navbar menu content here */}
                   <div className="flex items-center">
                     <NavigationItems></NavigationItems>
-                    <CartNav />
+                    {user && userRole !== 'admin' && <CartNav />}
+                    {/* <CartNav /> */}
                   </div>
                 </ul>
               </div>
