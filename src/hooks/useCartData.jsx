@@ -11,6 +11,7 @@ const useCartData = () => {
   const {data:cartData =[], refetch} = useQuery({
     queryKey: ["cartData", userLoading],
     enabled: !userLoading, 
+    // Why used userLoading state? Because on the AuthProvided Component we are using this state to wait for user from firebase and also getting jwt token for logged in user from the server. 
     queryFn: async () => {
       const res = await axiosSecure("/cart-data");
       return res.data; 

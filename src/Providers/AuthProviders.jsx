@@ -66,6 +66,7 @@ const AuthProviders = ({ children }) => {
           .catch((error) => {
            
             console.log(error);
+            // Why not setting setLoading(false) is here? Because if the server fails or doesn't get connected lots of other hooks like userCarData won't work and cause auto logout. Because we are using axiosSecure to inject access token while making request to server for cart data for appropriate users. When we don't get the token the but loading state becomes false, the get request is made and this gets rejected. It will cause auto logout because of how axiosSecure hook is written. 
           });
       }else{
         localStorage.removeItem('access-token');
