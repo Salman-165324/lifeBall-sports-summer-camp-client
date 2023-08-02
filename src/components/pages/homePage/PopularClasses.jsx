@@ -3,16 +3,18 @@ import useAxiosInstance from "../../../hooks/useAxiosInstance";
 import SectionTitle from "../../utils/SectionTitle";
 import { useState } from "react";
 import PopularClassCard from "./PopularClassCard";
+import usePopularClassesData from "../../../hooks/usePopularClassesData";
 
 const PopularClasses = () => {
-  const [axiosInstance] = useAxiosInstance();
-  const [popularClasses, setPopularClasses] = useState([]);
-  useEffect(() => {
-    axiosInstance("/popular-classes").then((res) => {
-      console.log(res.data);
-      setPopularClasses(res.data);
-    });
-  }, [axiosInstance]);
+ 
+  const [popularClasses, refetch] = usePopularClassesData(); 
+  // const [popularClasses, setPopularClasses] = useState([]);
+  // useEffect(() => {
+  //   axiosInstance("/popular-classes").then((res) => {
+  //     console.log(res.data);
+  //     setPopularClasses(res.data);
+  //   });
+  // }, []);
   return (
     <div>
       <div className="">

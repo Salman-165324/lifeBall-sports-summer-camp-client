@@ -16,7 +16,7 @@ const Home = () => {
         <PopularInstructor></PopularInstructor>
       </div>
       <div className="primary-container">
-         <Gallery></Gallery>
+        <Gallery></Gallery>
       </div>
       <Footer></Footer>
     </div>

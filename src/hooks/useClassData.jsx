@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import useAxiosInstance from "./useAxiosInstance";
 
 const useClassData = () => {
@@ -11,6 +10,7 @@ const useClassData = () => {
 
       return res?.data
     },
+    retry: 6, 
   });
 
   return [classes, refetch]

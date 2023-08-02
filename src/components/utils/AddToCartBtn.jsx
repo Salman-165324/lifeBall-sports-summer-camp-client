@@ -13,7 +13,7 @@ const AddToCartBtn = ({ singleClass }) => {
   const [userRole] = useFindUserRole();
   const [isDisable, setIsDisable] = useState(false);
   const [axiosSecure] = useAxiosSecure();
-  const [cartData, refetch] = useCartData();
+  const [, refetch] = useCartData();
   const navigate = useNavigate(); 
 
   useEffect(() => {

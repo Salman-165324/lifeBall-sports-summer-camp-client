@@ -9,7 +9,7 @@ const useCartData = () => {
   console.log("Loading data from the useCartData", userLoading);
   console.log("user data from the useCartData", user);
   const {data:cartData =[], refetch} = useQuery({
-    queryKey: ["cartData", userLoading, user],
+    queryKey: ["cartData", userLoading],
     enabled: !userLoading, 
     queryFn: async () => {
       const res = await axiosSecure("/cart-data");

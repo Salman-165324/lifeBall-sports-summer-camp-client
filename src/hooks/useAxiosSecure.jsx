@@ -1,46 +1,41 @@
-import { useEffect } from "react";
-import useAuth from "./useAuth";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import useAuth from './useAuth';
 
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:5000', 
-  // baseURL:"https://server-summer-camp-one.vercel.app"
-
-
+  // baseURL: 'http://localhost:5000', 
+  baseURL:"https://server-summer-camp-one.vercel.app"
 });
 
 const useAxiosSecure = () => {
-
-  const {logout, loading, user } = useAuth();
-  const navigate = useNavigate();
+  const { logout, loading } = useAuth(); 
+  const navigate = useNavigate(); 
+  
   useEffect(() => {
-    const token = localStorage.getItem("access-token");
-    if (token) {
-      axiosSecure.interceptors.request.use((config) => {
+
+    axiosSecure.interceptors.request.use((config) => {
+      const token = localStorage.getItem('access-token');
+      // console.log(token)
+      if (token) {
         config.headers.Authorization = `Bearer ${token}`;
-        return config;
-      });
-    }
+      }
+      // console.log(config);
+      return config;
+    });
 
     axiosSecure.interceptors.response.use(
       (response) => response,
       async (error) => {
-        console.log(error);
-        if (
-          error.response &&
-          (error.response.status === 401 || error.response.status === 403)
-        ) {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+
           await logout();
-          navigate("/login");
-          
+          navigate('/login');
         }
         return Promise.reject(error);
       }
     );
-  // }, [logout, navigate, loading, axiosInstance]);
-}, [logout, navigate, loading, user]); // removed axiosInstance for stopping continuously  refetching of payment Form component. Also moved axiosInstance from the useEffect hook. Also created a new AxiosInstance.
-
+  }, [logout, navigate, loading]);
 
   return [axiosSecure];
 };

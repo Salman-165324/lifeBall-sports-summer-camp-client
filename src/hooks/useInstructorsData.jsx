@@ -9,7 +9,8 @@ const useInstructorsData = () => {
         queryFn: async () => {
             const res = await axiosInstance.get("/instructors")
             return res.data; 
-        }
+        }, 
+        retry: 6, 
     })
     return [instructors, refetch]; 
 }
