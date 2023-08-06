@@ -16,10 +16,12 @@ export const AuthContext = createContext(null);
 
 const AuthProviders = ({ children }) => {
   const [axiosInstance] = useAxiosInstance();
+  const [stopFetchingCartData, setStopFetchingCartData] = useState(true); 
 
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -62,15 +64,20 @@ const AuthProviders = ({ children }) => {
           .then((res) => {
             localStorage.setItem("access-token", res?.data.token);
             setLoading(false);
+            setStopFetchingCartData(false); 
+       
           })
           .catch((error) => {
            
             console.log(error);
-            // Why not setting setLoading(false) is here? Because if the server fails or doesn't get connected lots of other hooks like userCarData won't work and cause auto logout. Because we are using axiosSecure to inject access token while making request to server for cart data for appropriate users. When we don't get the token the but loading state becomes false, the get request is made and this gets rejected. It will cause auto logout because of how axiosSecure hook is written. 
+            setLoading(false);
+            setStopFetchingCartData(true); 
+     
           });
       }else{
         localStorage.removeItem('access-token');
-        
+        setStopFetchingCartData(true); 
+        setLoading(false);
       }
     });
 
@@ -87,6 +94,8 @@ const AuthProviders = ({ children }) => {
     signUpWithPassword,
     logInWithPassword,
     addUserNameAndPicture,
+    stopFetchingCartData, 
+
   };
   return (
     <AuthContext.Provider value={authDetails}>{children}</AuthContext.Provider>

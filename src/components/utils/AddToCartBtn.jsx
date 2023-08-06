@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useFindUserRole from "../../hooks/useFindUserRole";

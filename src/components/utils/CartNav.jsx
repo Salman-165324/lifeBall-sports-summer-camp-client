@@ -1,12 +1,16 @@
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useCartData from "../../hooks/useCartData";
+import DataSpinner from "./DataSpinner";
 
 const CartNav = () => {
   const [cartData] = useCartData();
-  const cartLength = cartData.length
+  const cartLength = cartData?.length || 0;
+  const isLoading = cartData === null;
 
-  return (
+  return isLoading ? (
+    <DataSpinner />
+  ) : (
     <div>
       <Link className="flex items-center" to={"/dashboard/my-selected-classes"}>
         <BsFillCartCheckFill size={38} className="ml-8 mr-1 " />
