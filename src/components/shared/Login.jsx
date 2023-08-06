@@ -51,7 +51,11 @@ const Login = () => {
         toast.success("You have been successfully signed in", {
           position: "top-center", // Set the position to top-center
         });
-        const newUser = { name: user.displayName, email: user.email, role: 'student' };
+        const newUser = {
+          name: user.displayName,
+          email: user.email,
+          role: "student",
+        };
         axiosInstance
           .post("/add-user", { newUser })
           .then((res) => {
@@ -134,6 +138,10 @@ const Login = () => {
                     <AiFillGoogleCircle size={30} />
                     Continue with Google
                   </button>
+                  <p className="mt-6 pl-1 text-slate-400 cursor-text">
+                    As this is just a project to showcase my skills. Please us
+                    admin@lifeball.com and 123456A@ to use admin dashboard.
+                  </p>
                   <Link to={"/signup"}>
                     <p className="mt-6 pl-1 underline text-blue-900">
                       New to our site? Please signup
