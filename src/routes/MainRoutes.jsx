@@ -1,6 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../components/pages/homePage/Home";
+
 import SignUp from "../components/shared/SignUp";
 import Login from "../components/shared/Login";
 import Error from "../components/pages/errorPage/Error";
@@ -19,6 +19,7 @@ import MyClasses from "../components/pages/myClassesPage/MyClasses";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
 import StudentRoute from "./StudentRoute";
+import Home from "../layouts/Home";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home></Home>,
+    element: <Home/>,
   },
   {
     path: "dashboard",

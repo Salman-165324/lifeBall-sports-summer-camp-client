@@ -15,7 +15,9 @@
     "@stripe/stripe-js": "^1.54.0",
     "@tanstack/react-query": "^4.29.12",
     "axios": "^1.4.0",
+    "classnames": "^2.3.2",
     "firebase": "^9.23.0",
+    "framer-motion": "^10.15.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-awesome-button": "^7.0.5",
@@ -28,7 +30,8 @@
     "react-router-dom": "^6.12.1",
     "react-ts-typewriter": "^0.1.8-b",
     "sweetalert2": "^11.7.12",
-    "swiper": "^9.4.1"
+    "swiper": "^9.4.1",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
