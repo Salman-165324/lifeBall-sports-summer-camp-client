@@ -13,14 +13,14 @@ import specialKidsImg from '../../../assets/featuresImages/special kids.webp'
     return (
         <div 
             className= { classNames(
-                "absolute inset-0 h-full w-full rounded-3xl", 
+                "", 
                  inViewFeature !== id? "hidden": "block"
-                
+
             )
 
             }
         >
-        <img src= {img} />
+        <img className='object-cover' src= {img} />
           
         </div>
     );

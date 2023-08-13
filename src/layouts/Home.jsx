@@ -9,18 +9,19 @@ const Home = () => {
   return (
     <div>
       <HeroSection></HeroSection>
-       <div className="primary-container">
+       <div className="mt-16 primary-container">
        <OurFeatures />
        </div>
-      <div className="mt-16 primary-container">
+      <div className="primary-container">
         <PopularClasses></PopularClasses>
       </div>
+      <Gallery></Gallery>
       <div className="primary-container">
         <PopularInstructor></PopularInstructor>
       </div>
-      <div className="primary-container">
-        <Gallery></Gallery>
-      </div>
+     
+     
+ 
       <Footer></Footer>
     </div>
   );

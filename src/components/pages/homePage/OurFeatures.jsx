@@ -52,14 +52,17 @@ const OurFeatures = () => {
   ];
 
   return (
-    <div className="secondary-container -mb-96 lg:-mb-60">
-      <div className="-mb-64 lg:-mb-32 pt-16 lg:pt-20">
+    <div className="">
+      <div className="">
         <SectionTitle title={"Our Features"}></SectionTitle>
+        <div className="mt-12 px-3 md:px-3 ">
+          <h2 className="uppercase font-bold md:text-3xl xl:text-4xl text-gray-500 transition-colors text-center">Our kids are our future, so we want to give the best</h2>
+        </div>
       </div>
-      <div className="flex w-full gap-4 md:gap-10 xl:gap-20 items-start">
+      <div className="mt-14 flex w-full gap-4 md:gap-10 lg:gap-20 items-start px-3 md:px-0 justify-between">
         {/* Flex part 1 */}
-        <div className=" w-full py-[60vh] md:py-[55vh]">
-          <ul className="">
+        <div className="w-[40%]">
+          <ul className="py-[75vh]  md:py-[65vh]">
             {features.map((feature) => (
               <li key={feature.id}>
                 <FeaturesTitle id={feature.id}>{feature.title}</FeaturesTitle>
@@ -69,8 +72,8 @@ const OurFeatures = () => {
         </div>
 
         {/* Flex part 2 */}
-        <div className="w-full sticky top-[4%] flex h-screen items-center">
-          <div className="bg-gray-100 relative w-full aspect-square rounded-2xl">
+        <div className="sticky w-[50%] top-[35vh] lg:top-[20vh]">
+          <div className="bg-gray-100 max-h-[50vh] aspect-square rounded-2xl ">
             {features.map((feature) => (
               <feature.card id={feature.id} key={feature.id} />
             ))}
