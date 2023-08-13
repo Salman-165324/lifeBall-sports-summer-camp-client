@@ -5,13 +5,7 @@ import ClassCard from "./ClassCard";
 
 const Classes = () => {
   const [classes, , axiosError, errorMessage] = useClassData();
-  return axiosError? (
-   <div className="pt-32 w-full text-center">
-
-      <DataLoadingProblemText errorMessage={errorMessage} ></DataLoadingProblemText>
-
-   </div>
-  ) : (
+  return (
     <div>
       <div className=" pt-40 md:pt-48">
         <SectionTitle title={"All the Classes"}></SectionTitle>
