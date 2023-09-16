@@ -5,7 +5,8 @@ import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
   // baseURL: 'http://localhost:5000',
-  baseURL: "https://lifeball-summer-camp-server-side.onrender.com",
+  // baseURL: "https://lifeball-summer-camp-server-side.onrender.com",
+  baseURL: "https://lifeball-summercamp-production.up.railway.app",
 });
 
 const useAxiosSecure = () => {

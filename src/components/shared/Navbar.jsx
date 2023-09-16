@@ -70,7 +70,7 @@ const Navbar = () => {
   //   </>
   // );
   const { user } = useAuth();
-  const [userRole] = useFindUserRole(); 
+  const [userRole] = useFindUserRole();
   return (
     <div className="bg-green-950 text-white  lg:opacity-80 w-full fixed z-50">
       <div className="drawer secondary-container ">
@@ -109,8 +109,8 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="md:hidden">
-              {user && userRole !== 'admin' && <CartNav />}
-              {/* <CartNav /> */}
+                {user && userRole !== "admin" && <CartNav />}
+                {/* <CartNav /> */}
               </div>
             </div>
             <div className="flex-1 px-2 mx-2 font-bold flex items-center justify-center">
@@ -119,7 +119,7 @@ const Navbar = () => {
                   {/* Navbar menu content here */}
                   <div className="flex items-center">
                     <NavigationItems></NavigationItems>
-                    {user && userRole !== 'admin' && <CartNav />}
+                    {user && userRole !== "admin" && <CartNav />}
                     {/* <CartNav /> */}
                   </div>
                 </ul>
