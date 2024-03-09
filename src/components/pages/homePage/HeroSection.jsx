@@ -25,7 +25,7 @@ const HeroSection = () => {
          (max-width: 1280px) 1280px, 
          1920px"
             className="w-full object-cover h-[100vh]"
-            alt="Descriptive text about the image"
+            alt="A student of the chess class playing with outmost attention"
           />
 
           <div className="absolute z-10 opacity-40 flex justify-between transform -translate-y-1/2 left-3 right-3 bottom-[8vh] lg:bottom-1/2">
