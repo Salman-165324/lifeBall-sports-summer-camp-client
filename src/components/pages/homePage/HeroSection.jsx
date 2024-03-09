@@ -15,7 +15,21 @@ const HeroSection = () => {
       <div className="carousel inset-0 w-full">
         <div id="slide1" className="carousel-item relative w-full">
           <div className="absolute inset-0 bg-green-950 bg-opacity-60"></div>
-          <img src={bg1} className="w-full object-cover  h-[100vh]" />
+          <img
+            src="https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto/v1/lifeball/heroSection/bg-1_u83czh.jpg"
+            srcSet="
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_480/v1/lifeball/heroSection/bg-1_u83czh.jpg 480w, 
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_768/v1/lifeball/heroSection/bg-1_u83czh.jpg 768w, 
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_1280/v1/lifeball/heroSection/bg-1_u83czh.jpg 1280w, 
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_1920/v1/lifeball/heroSection/bg-1_u83czh.jpg 1920w"
+            sizes="(max-width: 480px) 480px, 
+         (max-width: 768px) 768px, 
+         (max-width: 1280px) 1280px, 
+         1920px"
+            className="w-full object-cover h-[100vh]"
+            alt="Descriptive text about the image"
+          />
+
           <div className="absolute z-10 opacity-40 flex justify-between transform -translate-y-1/2 left-3 right-3 bottom-[8vh] lg:bottom-1/2">
             <a href="#slide2" className="btn btn-circle">
               ❮
@@ -65,9 +79,9 @@ const HeroSection = () => {
             </Slide>
             <p className=" mb-5 text-yellow-100 font-semibold mt-3 md:mt-5 max-w-xl"></p>
             <div className="mt-5">
-            <Link to={"/classes"}>
-              <PrimaryBtn text={"Learn More"}></PrimaryBtn>
-            </Link>
+              <Link to={"/classes"}>
+                <PrimaryBtn text={"Learn More"}></PrimaryBtn>
+              </Link>
             </div>
           </div>
         </div>
