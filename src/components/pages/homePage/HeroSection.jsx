@@ -1,6 +1,4 @@
 import "react-awesome-slider/dist/custom-animations/cube-animation.css";
-import bg1 from "../../../assets/bg-1.jpg";
-import bg2 from "../../../assets/bg-2.jpg";
 import PrimaryBtn from "../../utils/PrimaryBtn";
 import Navbar from "../../shared/Navbar";
 import { Fade, Slide } from "react-awesome-reveal";
@@ -62,7 +60,21 @@ const HeroSection = () => {
         {/* Slide 2 */}
         <div id="slide2" className="carousel-item relative w-full">
           <div className="absolute inset-0 bg-green-950 bg-opacity-60"></div>
-          <img src={bg2} className="w-full object-cover  h-[100vh]" />
+          <img
+            src="https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto/v1/lifeball/heroSection/bg-2_nvl1ea.jpg"
+            srcSet="
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_480/v1/lifeball/heroSection/bg-2_nvl1ea.jpg 480w, 
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_768/v1/lifeball/heroSection/bg-2_nvl1ea.jpg 768w, 
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_1280/v1/lifeball/heroSection/bg-2_nvl1ea.jpg 1280w, 
+    https://res.cloudinary.com/dodpx3cj9/image/upload/f_auto,q_auto,w_1920/v1/lifeball/heroSection/bg-2_nvl1ea.jpg 1920w"
+            sizes="(max-width: 480px) 480px, 
+         (max-width: 768px) 768px, 
+         (max-width: 1280px) 1280px, 
+         1920px"
+            className="w-full object-cover h-[100vh]"
+            alt="Descriptive text about the image"
+          />
+
           <div className="absolute z-10 opacity-40 flex justify-between transform -translate-y-1/2 left-3 right-3 bottom-[8vh] lg:bottom-1/2">
             <a href="#slide1" className="btn btn-circle">
               ❮
