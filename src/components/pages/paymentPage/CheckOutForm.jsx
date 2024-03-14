@@ -17,16 +17,12 @@ const CheckOutForm = () => {
   const [processing, setProcessing] = useState(false);
   const [axiosSecure] = useAxiosSecure();
   
-  // console.log("Stripe", stripe);
-  console.log("Axios Instance", axiosSecure);
   useEffect(() => {
-    console.log("Inside UseEffect", totalPrice);
     if (totalPrice !== null && totalPrice > 0) {
       axiosSecure
         .post("/create-payment-intent", { totalPrice })
         .then((res) => {
-          console.log(res.data.clientSecret);
-          console.log("Inside AxiosInstance");
+      
           setClientSecret(res.data.clientSecret);
           setErrorText("")
           setProcessing(false)
@@ -110,7 +106,7 @@ const CheckOutForm = () => {
       axiosSecure
         .post("/payments", paymentData)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           refetch();
           // todo: remove this refetch from here. If other refetch() from above works.
         })

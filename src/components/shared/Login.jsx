@@ -25,18 +25,15 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     logInWithPassword(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         toast.success("You have been successfully Logged in", {
           position: "top-center",
         });
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error.message, {
           position: "top-center",
         });
@@ -47,7 +44,6 @@ const Login = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        console.log(user);
         toast.success("You have been successfully signed in", {
           position: "top-center", // Set the position to top-center
         });

@@ -4,7 +4,6 @@ import InstructorCard from "./InstructorCard";
 
 const Instructors = () => {
   const [instructors] = useInstructorsData();
-  console.log(instructors);
 
   return (
     <div>

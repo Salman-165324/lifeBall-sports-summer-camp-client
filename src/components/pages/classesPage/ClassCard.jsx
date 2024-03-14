@@ -35,7 +35,6 @@ const ClassCard = ({ singleClass }) => {
     }
   }, [userRole, singleClass.availableSeats]);
   const handleSelectClass = () => {
-    console.log("Clicked Class Btn");
     if (!user) {
       Swal.fire({
         title: "You Need to login first",
@@ -66,7 +65,6 @@ const ClassCard = ({ singleClass }) => {
     };
 
     axiosSecure.post("/add-to-cart", cartData).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         toast.success(`${className} has been added to the cart`, {
           position: "top-center",

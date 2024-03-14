@@ -4,7 +4,6 @@ import { Elements } from "@stripe/react-stripe-js";
 
 const PaymentPage = () => {
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
-  console.log("Inside payment Page debugging");
   return (
     <div>
       <div>

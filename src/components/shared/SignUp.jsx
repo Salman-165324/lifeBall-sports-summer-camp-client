@@ -23,19 +23,16 @@ const SignUp = () => {
 
   const password = watch("password");
   const onSubmit = (data) => {
-    console.log(data);
 
     signUpWithPassword(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         addUserNameAndPicture(data.name, data.photoURL)
           .then(() => {
             const newUser = { name: data?.name, email: data.email, role: 'student'};
             axiosInstance
               .post("/add-user", { newUser })
               .then((res) => {
-                console.log("Response after adding the user to db", res.data);
               })
               .catch((error) => {
                 console.log("Error after trying to add user to db", error);
@@ -70,7 +67,6 @@ const SignUp = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        console.log(user);
         toast.success("You have been successfully signed in", {
           position: "top-center", // Set the position to top-center
         });
@@ -79,7 +75,6 @@ const SignUp = () => {
         axiosInstance
           .post("/add-user", { newUser })
           .then((res) => {
-            console.log("Response after adding the user to db", res.data);
           })
           .catch((error) => {
             console.log("Error after trying to add user to db", error);

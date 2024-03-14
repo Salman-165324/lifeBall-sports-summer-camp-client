@@ -66,7 +66,6 @@ const AddToCartBtn = ({ singleClass }) => {
     };
 
     axiosSecure.post("/add-to-cart", cartData).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         refetch();
         toast.success(`${className} has been added to the cart`, {

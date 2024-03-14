@@ -4,7 +4,7 @@ import useAxiosInstance from '../../../hooks/useAxiosInstance';
 const MyClasses = () => {
     const [axiosInstance] = useAxiosInstance(); 
     axiosInstance('/classes')
-    .then( res => console.log("data from my Classes", res.data))
+    .then( res => res.data)
     
     return (
         <div>

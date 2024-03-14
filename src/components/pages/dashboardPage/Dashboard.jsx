@@ -10,7 +10,6 @@ import useFindUserRole from "../../../hooks/useFindUserRole";
 const Dashboard = () => {
   // const userRole = "admin";
   const [userRole] = useFindUserRole(); 
-  console.log(userRole);
   return (
     <div className="2xl:bg-rose-200 2xl:py-20">
       <div className=" max-w-screen-2xl mx-auto xl:bg-green-100  2xl:rounded-xl  ">

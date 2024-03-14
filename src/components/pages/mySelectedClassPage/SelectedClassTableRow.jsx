@@ -19,7 +19,6 @@ const SelectedClassTableRow = ({ item, index }) => {
        
         axiosSecure.delete(`/delete-cart-item/${_id}?userEmail=${userEmail}`)
         .then( res => {
-            console.log(res.data)
             if(res.data.deletedCount){
                 Swal.fire("Deleted!", "Your file has been deleted.", "success");
                 refetch();

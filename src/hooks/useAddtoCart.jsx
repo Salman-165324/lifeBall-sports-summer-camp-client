@@ -11,7 +11,6 @@ import useFindUserRole from "./useFindUserRole";
 
 const useAddToCart = (singleClass) => {
     const {user} = useAuth(); 
-    console.log("Clicked Class Btn");
     const [isDisable, setIsDisable] = useState(false);
     useEffect(() => {
       switch (useFindUserRole) {
@@ -60,7 +59,6 @@ const useAddToCart = (singleClass) => {
     };
 
     useAxiosSecure.post("/add-to-cart", cartData).then((res) => {
-      console.log(res.data);
       if (res.data.insertedId) {
         toast.success(`${className} has been added to the cart`, {
           position: "top-center",

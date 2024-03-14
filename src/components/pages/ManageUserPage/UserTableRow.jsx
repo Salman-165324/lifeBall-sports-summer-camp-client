@@ -43,10 +43,8 @@ const UserTableRow = ({ user, index }) => {
   const handleRoleChange = (e) => {
     const btnText = e.target.innerText.toLowerCase();
     const role = btnText.split(" ")[1];
-    console.log(role);
     const reqData = { role, _id };
     axiosSecure.patch("/update-role", { reqData }).then((req) => {
-      console.log(req.data);
       if (req.data.modifiedCount) {
         refetch();
         toast.success(`${name} is now ${role}`, {
