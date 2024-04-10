@@ -4,7 +4,7 @@ import websiteLogo from "../../assets/soccer.png";
 const Footer = () => {
   return (
     <div>
-      <footer className="p-10 bg-base-200 text-base-content">
+      <footer className="p-10 bg-zinc-100  text-base-content border-t-2 border-slate-700">
         <div className="secondary-container footer grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <span className="footer-title">Important Links</span>
@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <footer className="px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+      <footer className="px-10 py-4 bg-zinc-100 text-base-content border-base-300">
         <div className="footer secondary-container">
           <div className="items-center grid-flow-col">
             <img className="w-10 h-10" src={websiteLogo} alt="" />
