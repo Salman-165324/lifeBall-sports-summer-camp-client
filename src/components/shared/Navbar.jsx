@@ -6,71 +6,18 @@ import NavigationItems from "../utils/NavigationItems";
 import { FaBars } from "react-icons/fa";
 import CartNav from "../utils/CartNav";
 import useFindUserRole from "../../hooks/useFindUserRole";
+import { useState } from "react";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const Navbar = () => {
-  // const navItems = (
-  //   <>
-  //     <li className="group">
-  //       <div className=" group-hover:text-yellow-100 !important hover:underline">
-  //         <Link to={"/"}>Home</Link>
-  //       </div>
-  //     </li>
-  //     <li className="group">
-  //       <div className=" group-hover:text-yellow-100 hover:underline">
-  //         <Link to={"/instructors"}>Instructors</Link>
-  //       </div>
-  //     </li>
-  //     <li className="group">
-  //       <div className=" group-hover:text-yellow-100 hover:underline">
-  //         <Link to={"/classes"}>Classes</Link>
-  //       </div>
-  //     </li>
-  //     <li className="group">
-  //       <div className="group-hover:text-yellow-100 hover:underline">
-  //         <Link to={"/dashboard"}>Dashboard</Link>
-  //       </div>
-  //     </li>
-  //     {user ? (
-  //       <>
-  //         <li className="grow-0 w-fit pt-4 md:pt-0 ">
-  //           <div>
-  //             <button
-  //               onClick={handleLogout}
-  //               className="btn btn-sm btn-outline btn-warning text-white block hover:text-yellow-400  "
-  //             >
-  //               logout
-  //             </button>
-  //             {user.photoURL ? (
-  //               <>
-  //                 <div className="avatar">
-  //                   <div className="ml-4 w-10 mask mask-squircle">
-  //                     <img src={user?.photoURL} />
-  //                   </div>
-  //                 </div>
-  //               </>
-  //             ) : (
-  //               <>
-  //                 <div>
-  //                   <p className="text-white ">{user?.displayName}</p>
-  //                 </div>
-  //               </>
-  //             )}
-  //           </div>
-  //         </li>
-  //       </>
-  //     ) : (
-  //       <>
-  //         <li className="grow-0 w-fit pt-4 md:pt-0  ">
-  //           <Link to={"/login"}>
-  //             <button className="btn btn-sm">login</button>
-  //           </Link>
-  //         </li>
-  //       </>
-  //     )}
-  //   </>
-  // );
   const { user } = useAuth();
   const [userRole] = useFindUserRole();
+  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
+
+  const drawerCloseIconClass = isNavDrawerOpen ? "block" : "hidden";
+  const drawerOpenIconClass = isNavDrawerOpen ? "hidden" : "block";
+  const menuDrawerStyle = isNavDrawerOpen ? "block" : "hidden";
+
   return (
     <div className="bg-green-950 text-white  lg:opacity-80 w-full fixed z-50">
       <div className="drawer secondary-container ">
@@ -79,38 +26,22 @@ const Navbar = () => {
           {/* Navbar */}
           <div className="w-full navbar">
             <div className="flex-none lg:hidden">
-              {/* <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className="inline-block w-6 h-6 stroke-current"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              </label> */}
               <label
                 htmlFor="my-drawer-3"
-                className="btn pt-3 pb-3 bg-green-800 border-2 border-green-200 mr-6 drawer-button lg:hidden"
+                className=" px-[10px] py-3 rounded-lg bg-green-800 border-2 border-green-200 mr-6 drawer-button lg:hidden"
               >
-                <FaBars size={20} />
+                <FaBars size={16} />
               </label>
             </div>
             <div>
-              <img className="w-14 h-16" src={websiteLogo} alt="" />
-              <div className="ml-2  leading-tight tracking-wider">
+              <img className="w-10 h-12" src={websiteLogo} alt="" />
+              <div className="leading-tight tracking-wider">
                 <Link to={"/home"}>
-                  <span className="font-bold text-xl block">LifeBall</span>
+                  <span className="font-bold text-lg block">LifeBall</span>
                 </Link>
               </div>
               <div className="md:hidden">
                 {user && userRole !== "admin" && <CartNav />}
-                {/* <CartNav /> */}
               </div>
             </div>
             <div className="flex-1 px-2 mx-2 font-bold flex items-center justify-center">
@@ -120,20 +51,24 @@ const Navbar = () => {
                   <div className="flex items-center">
                     <NavigationItems></NavigationItems>
                     {user && userRole !== "admin" && <CartNav />}
-                    {/* <CartNav /> */}
                   </div>
                 </ul>
               </div>
             </div>
           </div>
-          {/* Page content here */}
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 h-full  bg-green-950 text-white font-bold opacity-100">
-            {/* Sidebar content here */}
-            <NavigationItems></NavigationItems>
-          </ul>
+
+          {/* Sidebar content here */}
+          <div className="menu p-4 w-72 h-full  bg-green-950 text-white font-bold opacity-100">
+            <div className="flex justify-between">
+              <NavigationItems></NavigationItems>
+              <label htmlFor="my-drawer-3">
+                <IoMdCloseCircleOutline size={28} />
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

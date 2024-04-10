@@ -13,7 +13,7 @@ const CartNav = () => {
   ) : (
     <div>
       <Link className="flex items-center" to={"/dashboard/my-selected-classes"}>
-        <BsFillCartCheckFill size={38} className="ml-8 mr-1 " />
+        <BsFillCartCheckFill size={34} className="ml-8 mr-1 " />
         <div className="badge h-7 w-12 mt-1 text-lg">+{cartLength}</div>
       </Link>
     </div>
