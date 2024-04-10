@@ -29,10 +29,10 @@ const HeroSection = () => {
           />
 
           <div className="absolute z-10 opacity-40 flex justify-between transform -translate-y-1/2 left-3 right-3 bottom-[8vh] lg:bottom-1/2">
-            <a href="#slide2" className="btn btn-circle">
+            <a href="#slide2" className="btn btn-circle bg-slate-200">
               ❮
             </a>
-            <a href="#slide2" className="btn btn-circle">
+            <a href="#slide2" className="btn btn-circle bg-slate-200">
               ❯
             </a>
           </div>
@@ -76,10 +76,10 @@ const HeroSection = () => {
           />
 
           <div className="absolute z-10 opacity-40 flex justify-between transform -translate-y-1/2 left-3 right-3 bottom-[8vh] lg:bottom-1/2">
-            <a href="#slide1" className="btn btn-circle">
+            <a href="#slide1" className="btn btn-circle bg-slate-200">
               ❮
             </a>
-            <a href="#slide1" className="btn btn-circle">
+            <a href="#slide1" className="btn btn-circle bg-slate-200">
               ❯
             </a>
           </div>
