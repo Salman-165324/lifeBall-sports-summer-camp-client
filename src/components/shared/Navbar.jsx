@@ -61,9 +61,11 @@ const Navbar = () => {
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
 
           {/* Sidebar content here */}
-          <div className="menu p-4 w-72 h-full  bg-green-950 text-white font-bold opacity-100">
+          <div className="menu p-4 w-72 sm:w-80 h-full  bg-green-950 text-white font-bold opacity-100">
             <div className="flex justify-between">
-              <NavigationItems></NavigationItems>
+              <ul>
+                <NavigationItems></NavigationItems>
+              </ul>
               <label htmlFor="my-drawer-3">
                 <IoMdCloseCircleOutline size={28} />
               </label>

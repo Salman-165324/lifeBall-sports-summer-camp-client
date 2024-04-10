@@ -20,7 +20,7 @@ const NavigationItems = () => {
       });
   };
   return (
-    <ul>
+    <>
       <li className="group">
         <div className=" group-hover:text-yellow-100 !important hover:underline">
           <Link to={"/"}>Home</Link>
@@ -82,7 +82,7 @@ const NavigationItems = () => {
           </li>
         </>
       )}
-    </ul>
+    </>
   );
 };
 
