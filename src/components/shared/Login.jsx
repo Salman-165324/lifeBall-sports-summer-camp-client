@@ -75,7 +75,7 @@ const Login = () => {
   return (
     <div className="pt-20 pb-7 md:pt-36">
       <div className="secondary-container">
-        <div className="hero bg-green-200 rounded-xl py-10">
+        <div className="hero rounded-xl py-10">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="text-center lg:text-left">
               <h1 className="text-5xl font-bold">Login Please!</h1>
