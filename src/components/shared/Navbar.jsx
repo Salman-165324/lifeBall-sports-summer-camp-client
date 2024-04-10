@@ -96,7 +96,7 @@ const Navbar = () => {
               </label> */}
               <label
                 htmlFor="my-drawer-3"
-                className="btn bg-green-200 btn-outline mr-6 drawer-button lg:hidden"
+                className="btn pt-3 pb-3 bg-green-800 border-2 border-green-200 mr-6 drawer-button lg:hidden"
               >
                 <FaBars size={20} />
               </label>
