@@ -4,24 +4,27 @@ import HeroSection from "../components/pages/homePage/HeroSection";
 import PopularClasses from "../components/pages/homePage/PopularClasses";
 import PopularInstructor from "../components/pages/homePage/PopularInstructor";
 import OurFeatures from "../components/pages/homePage/OurFeatures";
+import { ServerLoading } from "../components/shared/ServerLoading";
 
 const Home = () => {
   return (
     <div>
       <HeroSection></HeroSection>
-       <div className="mt-16 primary-container">
-       <OurFeatures />
-       </div>
-      <div className="primary-container">
+      <section className="mt-16 primary-container">
+        <OurFeatures />
+      </section>
+      <section className="primary-container">
         <PopularClasses></PopularClasses>
-      </div>
+      </section>
       <Gallery></Gallery>
-      <div className="primary-container">
+      <section className="primary-container">
         <PopularInstructor></PopularInstructor>
-      </div>
-     
-     
- 
+      </section>
+
+      {/* <section className="primary-container">
+        <ServerLoading></ServerLoading>
+      </section> */}
+
       <Footer></Footer>
     </div>
   );
