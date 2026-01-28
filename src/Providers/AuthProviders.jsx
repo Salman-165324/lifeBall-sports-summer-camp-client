@@ -9,19 +9,18 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import app from "../../firebase/firbase.config";
+import app from "../../firebase/firebase.config";
 import useAxiosInstance from "../hooks/useAxiosInstance";
 
 export const AuthContext = createContext(null);
 
 const AuthProviders = ({ children }) => {
   const [axiosInstance] = useAxiosInstance();
-  const [stopFetchingCartData, setStopFetchingCartData] = useState(true); 
+  const [stopFetchingCartData, setStopFetchingCartData] = useState(true);
 
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -63,19 +62,16 @@ const AuthProviders = ({ children }) => {
           .then((res) => {
             localStorage.setItem("access-token", res?.data.token);
             setLoading(false);
-            setStopFetchingCartData(false); 
-       
+            setStopFetchingCartData(false);
           })
           .catch((error) => {
-           
             console.log(error);
             setLoading(false);
-            setStopFetchingCartData(true); 
-     
+            setStopFetchingCartData(true);
           });
-      }else{
-        localStorage.removeItem('access-token');
-        setStopFetchingCartData(true); 
+      } else {
+        localStorage.removeItem("access-token");
+        setStopFetchingCartData(true);
         setLoading(false);
       }
     });
@@ -93,8 +89,7 @@ const AuthProviders = ({ children }) => {
     signUpWithPassword,
     logInWithPassword,
     addUserNameAndPicture,
-    stopFetchingCartData, 
-
+    stopFetchingCartData,
   };
   return (
     <AuthContext.Provider value={authDetails}>{children}</AuthContext.Provider>
