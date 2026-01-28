@@ -4,11 +4,10 @@ import useCartData from "../../hooks/useCartData";
 import DataSpinner from "./DataSpinner";
 
 const CartNav = () => {
-  const [cartData] = useCartData();
-  const cartLength = cartData?.length || 0;
-  const isLoading = cartData === null;
+  const [cartData, , isCartLoading] = useCartData();
+  const cartLength = cartData.length;
 
-  return isLoading ? (
+  return isCartLoading ? (
     <DataSpinner />
   ) : (
     <div>

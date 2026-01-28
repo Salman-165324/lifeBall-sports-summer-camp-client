@@ -12,32 +12,37 @@ const CheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorText, setErrorText] = useState("");
-  const [cartData, refetch] = useCartData();
+  const [cartData, refetch, isCartLoading] = useCartData();
   const totalPrice = cartData.reduce((sum, item) => sum + item.price, 0);
   const [processing, setProcessing] = useState(false);
   const [axiosSecure] = useAxiosSecure();
-  
+
   useEffect(() => {
-    if (totalPrice !== null && totalPrice > 0) {
+    // Wait until cart has finished loading before deciding if it's empty.
+    if (isCartLoading) return;
+
+    if (totalPrice > 0) {
       axiosSecure
         .post("/create-payment-intent", { totalPrice })
         .then((res) => {
-      
           setClientSecret(res.data.clientSecret);
-          setErrorText("")
-          setProcessing(false)
+          setErrorText("");
+          setProcessing(false);
         })
         .catch((error) => {
           // Handle any errors during PaymentIntent creation
-          setErrorText("Error creating PaymentIntent. Please try again or reload the page.");
+          setErrorText(
+            "Error creating PaymentIntent. Please try again or reload the page."
+          );
           console.log("Create payment intent error", error);
         });
     } else {
       // Handle totalPrice being zero or null (e.g., empty cart)
       setErrorText("Your Cart is empty.");
-      setProcessing(true)
+      setClientSecret("");
+      setProcessing(false);
     }
-  }, [totalPrice, axiosSecure]);
+  }, [totalPrice, axiosSecure, isCartLoading]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +58,7 @@ const CheckOutForm = () => {
     }
 
     setProcessing(true);
-    const { error} = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -66,21 +71,21 @@ const CheckOutForm = () => {
       setErrorText("");
     }
 
-    const {
-      paymentIntent,
-      error: confirmPaymentError,
-    } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: card,
-        billing_details: {
-          name: user?.displayName || "anonymous",
-          email: user?.email || "unknown",
+    const { paymentIntent, error: confirmPaymentError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || "anonymous",
+            email: user?.email || "unknown",
+          },
         },
-      },
-    });
+      });
     if (confirmPaymentError) {
       console.error("Error confirming payment:", confirmPaymentError);
-      setErrorText("Error confirming payment. Please try again or reload the page.");
+      setErrorText(
+        "Error confirming payment. Please try again or reload the page."
+      );
       setProcessing(false);
       setSuccessText("");
     }
@@ -122,7 +127,9 @@ const CheckOutForm = () => {
   return (
     <div className="lg:w-1/2 px-2 mx-auto mt-16">
       <div>
-        <p className="text-3xl my-5">To pay: ${totalPrice}</p>
+        <p className="text-3xl my-5">
+          To pay: ${isCartLoading ? "..." : totalPrice}
+        </p>
       </div>
       <form
         className=" border-2 border-green-950 p-6 rounded-lg"
@@ -147,7 +154,13 @@ const CheckOutForm = () => {
         <button
           className="btn bg-green-900 hover:bg-green-950 text-white btn-sm mt-5"
           type="submit"
-          disabled={!stripe || !clientSecret || processing}
+          disabled={
+            !stripe ||
+            !clientSecret ||
+            processing ||
+            isCartLoading ||
+            totalPrice <= 0
+          }
         >
           Pay
         </button>
@@ -160,7 +173,6 @@ const CheckOutForm = () => {
       {errorText && (
         <p className="mt-2 pl-1 text-red-500 font-semibold">{errorText}</p>
       )}
-    
     </div>
   );
 };

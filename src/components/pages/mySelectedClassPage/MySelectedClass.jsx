@@ -3,7 +3,7 @@ import useCartData from "../../../hooks/useCartData";
 import SelectedClassTableRow from "./SelectedClassTableRow";
 
 const MySelectedClass = () => {
-  const [cartData] = useCartData();
+  const [cartData, , isCartLoading] = useCartData();
   console.log(" MY Cart Data", cartData);
   const totalPay = cartData.reduce((sum, item) => sum + item.price, 0);
   return (
@@ -15,7 +15,7 @@ const MySelectedClass = () => {
       </div>
       <div className="ml-8 mt-16 text-3xl flex gap-10 items-center">
         <div>
-          <span>To Pay: ${totalPay}</span>
+          <span>To Pay: ${isCartLoading ? "..." : totalPay}</span>
         </div>
         <Link to={"/dashboard/payment"}>
           <button className="px-6 btn bg-green-900 hover:bg-green-950 text-white">
