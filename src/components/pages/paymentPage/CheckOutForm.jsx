@@ -1,24 +1,45 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useCartData from "../../../hooks/useCartData";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
+/**
+ * Stripe card input styling – matches dashboard emerald/slate theme.
+ * Used for CardElement options.
+ */
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      fontSize: "16px",
+      color: "#334155",
+      fontFamily: "Poppins, system-ui, sans-serif",
+      "::placeholder": {
+        color: "#94a3b8",
+      },
+      iconColor: "#059669",
+    },
+    invalid: {
+      color: "#dc2626",
+      iconColor: "#dc2626",
+    },
+  },
+};
+
 const CheckOutForm = () => {
   const [clientSecret, setClientSecret] = useState("");
-  const [transectionId, setTransactionId] = useState("");
-  const [successText, setSuccessText] = useState("");
+  const [errorText, setErrorText] = useState("");
   const { user } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
-  const [errorText, setErrorText] = useState("");
   const [cartData, refetch, isCartLoading] = useCartData();
   const totalPrice = cartData.reduce((sum, item) => sum + item.price, 0);
   const [processing, setProcessing] = useState(false);
   const [axiosSecure] = useAxiosSecure();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Wait until cart has finished loading before deciding if it's empty.
     if (isCartLoading) return;
 
     if (totalPrice > 0) {
@@ -30,15 +51,13 @@ const CheckOutForm = () => {
           setProcessing(false);
         })
         .catch((error) => {
-          // Handle any errors during PaymentIntent creation
           setErrorText(
-            "Error creating PaymentIntent. Please try again or reload the page."
+            "Error creating payment. Please try again or reload the page."
           );
           console.log("Create payment intent error", error);
         });
     } else {
-      // Handle totalPrice being zero or null (e.g., empty cart)
-      setErrorText("Your Cart is empty.");
+      setErrorText("Your cart is empty. Add classes before paying.");
       setClientSecret("");
       setProcessing(false);
     }
@@ -47,55 +66,47 @@ const CheckOutForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
+    if (!stripe || !elements) return;
 
     const card = elements.getElement(CardElement);
-
-    if (card == null) {
-      return;
-    }
+    if (card == null) return;
 
     setProcessing(true);
-    const { error } = await stripe.createPaymentMethod({
+    setErrorText("");
+
+    const { error: methodError } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
 
-    if (error) {
-      // console.log(error);
-      setErrorText(error.message);
-    } else {
-      // console.log(paymentMethod);
-      setErrorText("");
+    if (methodError) {
+      setErrorText(methodError.message);
+      setProcessing(false);
+      return;
     }
 
     const { paymentIntent, error: confirmPaymentError } =
       await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
-          card: card,
+          card,
           billing_details: {
-            name: user?.displayName || "anonymous",
+            name: user?.displayName || "Guest",
             email: user?.email || "unknown",
           },
         },
       });
+
     if (confirmPaymentError) {
       console.error("Error confirming payment:", confirmPaymentError);
       setErrorText(
-        "Error confirming payment. Please try again or reload the page."
+        "Payment could not be completed. Please check your card and try again."
       );
       setProcessing(false);
-      setSuccessText("");
+      return;
     }
-    // console.log(paymentIntent);
-    if (paymentIntent.status == "succeeded") {
+
+    if (paymentIntent?.status === "succeeded") {
       setProcessing(false);
-      setTransactionId(paymentIntent.id);
-      setSuccessText(`Congratulations! You payment is successful.`);
-      setErrorText("");
-      // todo: Find out why it isn't working in here
       refetch();
 
       const paymentData = {
@@ -110,69 +121,69 @@ const CheckOutForm = () => {
 
       axiosSecure
         .post("/payments", paymentData)
-        .then((res) => {
-          // console.log(res.data);
+        .then(() => {
           refetch();
-          // todo: remove this refetch from here. If other refetch() from above works.
+          // Redirect to success page with data for display
+          navigate("/dashboard/payment/success", {
+            state: {
+              transactionId: paymentIntent.id,
+              amount: totalPrice,
+              classNames: paymentData.className,
+            },
+          });
         })
         .catch((error) => {
-          console.log(error);
-          //  todo: redirect to a new page to show success status and clean the form.
+          console.error(error);
           setErrorText(
-            "Something went wrong saving your payment to database. Don't worry contact support with your transactionId"
+            "Payment succeeded but we couldn't save the record. Please contact support with transaction ID: " +
+              paymentIntent.id
           );
         });
     }
   };
+
+  const isSubmitDisabled =
+    !stripe || !clientSecret || processing || isCartLoading || totalPrice <= 0;
+
   return (
-    <div className="lg:w-1/2 px-2 mx-auto mt-16">
-      <div>
-        <p className="text-3xl my-5">
-          To pay: ${isCartLoading ? "..." : totalPrice}
-        </p>
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
+      {/* Amount due */}
+      <div className="mb-6 flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
+        <span className="text-slate-600">Amount due</span>
+        <span className="text-2xl font-bold text-emerald-700">
+          ${isCartLoading ? "—" : totalPrice.toFixed(2)}
+        </span>
       </div>
-      <form
-        className=" border-2 border-green-950 p-6 rounded-lg"
-        onSubmit={handleSubmit}
-      >
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
-                },
-              },
-              invalid: {
-                color: "#9e2146",
-              },
-            },
-          }}
-        />
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Card details label */}
+        <div>
+          <label className="mb-2 block text-sm font-medium text-slate-700">
+            Card details
+          </label>
+          <div className="rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 transition-colors focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20">
+            <CardElement options={CARD_ELEMENT_OPTIONS} />
+          </div>
+        </div>
+
+        {/* Error message */}
+        {errorText && (
+          <p className="rounded-lg bg-red-50 px-4 py-2 text-sm font-medium text-red-700">
+            {errorText}
+          </p>
+        )}
+
+        {/* Submit button */}
         <button
-          className="btn bg-green-900 hover:bg-green-950 text-white btn-sm mt-5"
           type="submit"
-          disabled={
-            !stripe ||
-            !clientSecret ||
-            processing ||
-            isCartLoading ||
-            totalPrice <= 0
-          }
+          disabled={isSubmitDisabled}
+          className="w-full rounded-xl bg-emerald-600 py-3 px-4 font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Pay
+          {processing
+            ? "Processing…"
+            : `Pay $${totalPrice > 0 ? totalPrice.toFixed(2) : "0.00"}`}
         </button>
       </form>
-      {successText && (
-        <p className="mt-2 pl-1 text-green-700 font-semibold">
-          {successText} Transaction ID: ${transectionId}
-        </p>
-      )}
-      {errorText && (
-        <p className="mt-2 pl-1 text-red-500 font-semibold">{errorText}</p>
-      )}
     </div>
   );
 };

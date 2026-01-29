@@ -2,17 +2,28 @@ import CheckOutForm from "./CheckOutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
+/**
+ * Payment page wrapper: loads Stripe and renders the checkout form
+ * inside a modern, centered card layout.
+ */
 const PaymentPage = () => {
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
+
   return (
-    <div>
-      <div>
-        <h2 className="text-4xl font-bold mt-16 ml-3 lg:text-center lg:ml-0">
-          Thanks for choosing us. Please pay to get your kid enrolled.
-        </h2>
+    <div className="max-w-2xl mx-auto">
+      {/* Page header */}
+      <div className="text-center mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
+          Complete your enrollment
+        </h1>
+        <p className="mt-2 text-slate-600">
+          Thanks for choosing us. Pay securely below to enroll your child.
+        </p>
       </div>
+
+      {/* Stripe Elements wrapper – form lives inside CheckOutForm */}
       <Elements stripe={stripePromise}>
-        <CheckOutForm ></CheckOutForm>
+        <CheckOutForm />
       </Elements>
     </div>
   );

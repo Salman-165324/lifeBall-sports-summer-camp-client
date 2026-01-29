@@ -12,6 +12,7 @@ import ManageUser from "../components/pages/ManageUserPage/ManageUser";
 import MySelectedClass from "../components/pages/mySelectedClassPage/MySelectedClass";
 
 import PaymentPage from "../components/pages/paymentPage/PaymentPage";
+import PaymentSuccess from "../components/pages/paymentPage/PaymentSuccess";
 import PaymentHistory from "../components/pages/paymentHistoryPage/PaymentHistory";
 import EnrolledClassesPage from "../components/pages/enrolledClassesPage/EnrolledClassesPage";
 import RoleRoutes from "./RoleRoutes";
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: "dashboard",
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <PaymentPage></PaymentPage>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/success",
+        element: (
+          <StudentRoute>
+            <PaymentSuccess></PaymentSuccess>
           </StudentRoute>
         ),
       },
