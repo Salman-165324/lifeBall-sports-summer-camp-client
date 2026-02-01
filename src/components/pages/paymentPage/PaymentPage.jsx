@@ -14,7 +14,7 @@ const PaymentPage = () => {
       {/* Page header */}
       <div className="text-center mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
-          Complete your enrollment
+          Complete
         </h1>
         <p className="mt-2 text-slate-600">
           Thanks for choosing us. Pay securely below to enroll your child.
